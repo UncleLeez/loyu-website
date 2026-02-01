@@ -45,25 +45,10 @@
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
             box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            text-decoration: none;
         }
 
         .logo img {
             height: 45px;
-        }
-
-        .logo-text {
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: var(--dark);
-            letter-spacing: 1px;
         }
 
         .nav-links {
@@ -78,28 +63,11 @@
             font-size: 0.9rem;
             font-weight: 400;
             letter-spacing: 1px;
-            position: relative;
-            padding-bottom: 4px;
             transition: color 0.3s;
         }
 
         .nav-links a:hover {
             color: var(--primary);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
         }
 
         .contact-btn {
@@ -120,9 +88,6 @@
         .hero {
             height: 100vh;
             position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             overflow: hidden;
         }
 
@@ -141,7 +106,7 @@
             width: 100%;
             height: 100%;
             opacity: 0;
-            transition: opacity 1s ease;
+            transition: opacity 1.5s ease;
             background-size: cover;
             background-position: center;
         }
@@ -164,139 +129,118 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 100%);
+            background: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 100%);
         }
 
         .hero-content {
-            position: relative;
+            position: absolute;
+            bottom: 15%;
+            left: 8%;
             z-index: 10;
-            text-align: center;
             color: var(--white);
-            max-width: 900px;
-            padding: 0 2rem;
+            max-width: 600px;
         }
 
         .hero-logo {
-            width: 180px;
+            width: 120px;
             margin-bottom: 2rem;
             filter: brightness(0) invert(1);
         }
 
         .hero-content h1 {
-            font-size: 2.8rem;
+            font-size: 3.5rem;
             font-weight: 300;
-            letter-spacing: 8px;
-            margin-bottom: 1.5rem;
-            line-height: 1.4;
+            letter-spacing: 4px;
+            margin-bottom: 1rem;
+            line-height: 1.2;
         }
 
         .hero-content p {
             font-size: 1rem;
             font-weight: 300;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 2;
+            line-height: 1.8;
         }
 
-        .scroll-indicator {
+        .scroll-hint {
             position: absolute;
             bottom: 3rem;
             left: 50%;
             transform: translateX(-50%);
             color: var(--white);
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             letter-spacing: 3px;
+            writing-mode: vertical-rl;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 0.8rem;
+            gap: 1rem;
         }
 
-        .scroll-indicator::after {
+        .scroll-hint::after {
             content: '';
             width: 1px;
-            height: 50px;
+            height: 60px;
             background: var(--white);
-            animation: scrollPulse 2s infinite;
+            animation: scrollLine 2s infinite;
         }
 
-        @keyframes scrollPulse {
-            0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
-            50% { opacity: 1; transform: scaleY(1); }
+        @keyframes scrollLine {
+            0% { transform: scaleY(0); transform-origin: top; }
+            50% { transform: scaleY(1); transform-origin: top; }
+            51% { transform-origin: bottom; }
+            100% { transform: scaleY(0); transform-origin: bottom; }
         }
 
         /* About Section */
         .about {
-            padding: 8rem 4rem;
+            padding: 10rem 8%;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6rem;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 8rem;
             align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
         }
 
         .about-content h2 {
-            font-size: 2.2rem;
-            font-weight: 400;
+            font-size: 2.5rem;
+            font-weight: 300;
             margin-bottom: 2rem;
             color: var(--dark);
-            position: relative;
-            padding-bottom: 1rem;
         }
 
-        .about-content h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: var(--primary);
+        .about-content h2 span {
+            color: var(--primary);
         }
 
         .about-content p {
             font-size: 1rem;
-            line-height: 2;
+            line-height: 2.2;
             color: var(--text-light);
             margin-bottom: 1.5rem;
         }
 
         .about-stats {
             display: flex;
-            gap: 3rem;
+            gap: 4rem;
             margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid #eee;
-        }
-
-        .stat {
-            text-align: left;
         }
 
         .stat-number {
-            font-size: 3rem;
-            font-weight: 300;
+            font-size: 4rem;
+            font-weight: 200;
             color: var(--primary);
             line-height: 1;
-        }
-
-        .stat-number span {
-            font-size: 1.5rem;
         }
 
         .stat-label {
             font-size: 0.85rem;
             color: var(--text-light);
-            letter-spacing: 1px;
             margin-top: 0.5rem;
         }
 
         .about-image {
-            height: 550px;
             position: relative;
+            height: 600px;
         }
 
         .about-image img {
@@ -305,21 +249,10 @@
             object-fit: cover;
         }
 
-        .about-image::before {
-            content: '';
-            position: absolute;
-            top: -20px;
-            right: -20px;
-            width: 100%;
-            height: 100%;
-            border: 3px solid var(--primary);
-            z-index: -1;
-        }
-
-        /* Projects Section */
+        /* Projects Section - Bento Grid */
         .projects {
+            padding: 8rem 4%;
             background: var(--light);
-            padding: 8rem 4rem;
         }
 
         .section-header {
@@ -328,187 +261,164 @@
         }
 
         .section-header h2 {
-            font-size: 2.2rem;
-            font-weight: 400;
+            font-size: 2.5rem;
+            font-weight: 300;
             color: var(--dark);
             margin-bottom: 0.5rem;
         }
 
         .section-header p {
             color: var(--text-light);
-            font-size: 0.9rem;
-            letter-spacing: 3px;
+            font-size: 0.85rem;
+            letter-spacing: 4px;
         }
 
-        .projects-filter {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .filter-btn {
-            background: none;
-            border: none;
-            font-size: 0.95rem;
-            color: var(--text-light);
-            cursor: pointer;
-            padding: 0.5rem 1rem;
-            position: relative;
-            transition: color 0.3s;
-            font-family: inherit;
-        }
-
-        .filter-btn.active,
-        .filter-btn:hover {
-            color: var(--primary);
-        }
-
-        .filter-btn.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30px;
-            height: 2px;
-            background: var(--primary);
-        }
-
-        .projects-grid {
+        /* Bento Grid Layout */
+        .bento-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            max-width: 1400px;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: 180px;
+            gap: 1rem;
+            max-width: 1600px;
             margin: 0 auto;
         }
 
-        .project-card {
+        .bento-item {
             position: relative;
-            aspect-ratio: 1;
             overflow: hidden;
             cursor: pointer;
         }
 
-        .project-card img {
+        .bento-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s ease;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        .project-card:hover img {
+        .bento-item:hover img {
             transform: scale(1.08);
         }
 
-        .project-overlay {
+        .bento-overlay {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(196, 18, 48, 0.85);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            background: linear-gradient(to top, rgba(196, 18, 48, 0.9) 0%, transparent 60%);
             opacity: 0;
             transition: opacity 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
             color: var(--white);
-            padding: 1rem;
-            text-align: center;
         }
 
-        .project-card:hover .project-overlay {
+        .bento-item:hover .bento-overlay {
             opacity: 1;
         }
 
-        .project-overlay h3 {
-            font-size: 1rem;
+        .bento-overlay h3 {
+            font-size: 1.1rem;
             font-weight: 400;
             margin-bottom: 0.3rem;
-            letter-spacing: 1px;
         }
 
-        .project-overlay span {
+        .bento-overlay span {
             font-size: 0.8rem;
             opacity: 0.8;
         }
 
+        /* Bento Item Sizes */
+        .bento-item:nth-child(1) { grid-column: span 5; grid-row: span 2; }
+        .bento-item:nth-child(2) { grid-column: span 4; grid-row: span 2; }
+        .bento-item:nth-child(3) { grid-column: span 3; grid-row: span 1; }
+        .bento-item:nth-child(4) { grid-column: span 3; grid-row: span 2; }
+        .bento-item:nth-child(5) { grid-column: span 4; grid-row: span 1; }
+        .bento-item:nth-child(6) { grid-column: span 5; grid-row: span 1; }
+        .bento-item:nth-child(7) { grid-column: span 6; grid-row: span 2; }
+        .bento-item:nth-child(8) { grid-column: span 3; grid-row: span 1; }
+        .bento-item:nth-child(9) { grid-column: span 3; grid-row: span 1; }
+
         .view-more {
-            display: block;
             text-align: center;
-            margin-top: 3rem;
+            margin-top: 4rem;
         }
 
         .view-more a {
-            color: var(--primary);
+            display: inline-block;
+            color: var(--dark);
             text-decoration: none;
             font-size: 0.9rem;
             letter-spacing: 2px;
-            padding-bottom: 4px;
-            border-bottom: 1px solid var(--primary);
+            padding: 1rem 3rem;
+            border: 1px solid var(--dark);
             transition: all 0.3s;
         }
 
         .view-more a:hover {
-            color: var(--primary-dark);
-            border-color: var(--primary-dark);
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--white);
         }
 
         /* Services Section */
         .services {
-            padding: 8rem 4rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .services-grid {
+            padding: 10rem 8%;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 0;
         }
 
         .service-card {
-            padding: 4rem 3rem;
+            padding: 5rem 3rem;
             text-align: center;
             border: 1px solid #eee;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             cursor: pointer;
             position: relative;
+            overflow: hidden;
         }
 
-        .service-card:hover {
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: var(--primary);
-            border-color: var(--primary);
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+            z-index: 0;
         }
 
-        .service-card:hover * {
+        .service-card:hover::before {
+            transform: translateY(0);
+        }
+
+        .service-card > * {
+            position: relative;
+            z-index: 1;
+            transition: color 0.4s;
+        }
+
+        .service-card:hover > * {
             color: var(--white);
         }
 
         .service-icon {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 1.5rem;
-            border: 2px solid var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            transition: all 0.3s;
-        }
-
-        .service-card:hover .service-icon {
-            border-color: var(--white);
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
         }
 
         .service-card h3 {
-            font-size: 1.3rem;
-            font-weight: 400;
+            font-size: 1.5rem;
+            font-weight: 300;
             margin-bottom: 1rem;
-            color: var(--dark);
-            letter-spacing: 2px;
+            letter-spacing: 3px;
         }
 
         .service-card p {
@@ -521,7 +431,7 @@
         .team {
             background: var(--dark);
             color: var(--white);
-            padding: 8rem 4rem;
+            padding: 8rem 8%;
         }
 
         .team .section-header h2 {
@@ -529,35 +439,40 @@
         }
 
         .team .section-header p {
-            color: rgba(255,255,255,0.6);
+            color: rgba(255,255,255,0.5);
         }
 
-        .team-grid {
+        .team-scroll {
             display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            max-width: 1200px;
-            margin: 0 auto;
+            gap: 3rem;
+            overflow-x: auto;
+            padding: 2rem 0;
+            scrollbar-width: none;
+        }
+
+        .team-scroll::-webkit-scrollbar {
+            display: none;
         }
 
         .team-member {
+            flex-shrink: 0;
             text-align: center;
-            width: 160px;
+            width: 180px;
         }
 
         .team-member img {
-            width: 120px;
-            height: 120px;
+            width: 140px;
+            height: 140px;
             object-fit: cover;
             border-radius: 50%;
             margin-bottom: 1rem;
             filter: grayscale(100%);
-            transition: filter 0.3s;
+            transition: all 0.4s;
         }
 
         .team-member:hover img {
             filter: grayscale(0%);
+            transform: scale(1.05);
         }
 
         .team-member h4 {
@@ -568,62 +483,46 @@
 
         .team-member span {
             font-size: 0.8rem;
-            color: rgba(255,255,255,0.6);
+            color: rgba(255,255,255,0.5);
         }
 
         /* Contact Section */
         .contact {
-            padding: 8rem 4rem;
+            padding: 10rem 8%;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 6rem;
-            max-width: 1400px;
-            margin: 0 auto;
+            gap: 8rem;
         }
 
         .contact-info h2 {
-            font-size: 2.2rem;
-            font-weight: 400;
+            font-size: 2.5rem;
+            font-weight: 300;
             margin-bottom: 1rem;
-            position: relative;
-            padding-bottom: 1rem;
-        }
-
-        .contact-info h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: var(--primary);
         }
 
         .contact-info > p {
             color: var(--text-light);
             margin-bottom: 3rem;
-            line-height: 1.8;
+            line-height: 2;
         }
 
         .contact-locations {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
+            flex-direction: column;
             gap: 2rem;
         }
 
         .location {
-            padding: 1.5rem;
+            padding: 2rem;
             background: var(--light);
+            border-left: 3px solid var(--primary);
         }
 
         .location h4 {
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 500;
-            color: var(--primary);
+            color: var(--dark);
             margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
         .location p {
@@ -653,10 +552,6 @@
             margin-bottom: 1.2rem;
         }
 
-        .form-group.full {
-            grid-column: 1 / -1;
-        }
-
         .form-group label {
             display: block;
             font-size: 0.85rem;
@@ -668,9 +563,10 @@
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 0.9rem 1rem;
-            border: 1px solid #ddd;
-            background: var(--white);
+            padding: 1rem;
+            border: none;
+            border-bottom: 1px solid #ddd;
+            background: transparent;
             font-family: inherit;
             font-size: 0.95rem;
             transition: border-color 0.3s;
@@ -684,18 +580,18 @@
         }
 
         .form-group textarea {
-            height: 120px;
+            height: 100px;
             resize: none;
         }
 
         .submit-btn {
             width: 100%;
-            padding: 1rem;
+            padding: 1.2rem;
             background: var(--primary);
             color: var(--white);
             border: none;
             font-size: 0.95rem;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             cursor: pointer;
             transition: background 0.3s;
         }
@@ -708,19 +604,14 @@
         footer {
             background: var(--dark);
             color: var(--white);
-            padding: 4rem;
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
+            padding: 3rem 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .footer-logo img {
-            height: 40px;
+            height: 35px;
             filter: brightness(0) invert(1);
         }
 
@@ -730,7 +621,7 @@
         }
 
         .footer-links a {
-            color: rgba(255,255,255,0.7);
+            color: rgba(255,255,255,0.6);
             text-decoration: none;
             font-size: 0.85rem;
             transition: color 0.3s;
@@ -741,15 +632,44 @@
         }
 
         .copyright {
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.5);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: var(--dark);
+            margin: 5px 0;
+            transition: 0.3s;
         }
 
         /* Responsive */
         @media (max-width: 1200px) {
-            .projects-grid {
-                grid-template-columns: repeat(3, 1fr);
+            .bento-grid {
+                grid-template-columns: repeat(6, 1fr);
+                grid-auto-rows: 150px;
             }
+            
+            .bento-item:nth-child(1) { grid-column: span 3; grid-row: span 2; }
+            .bento-item:nth-child(2) { grid-column: span 3; grid-row: span 2; }
+            .bento-item:nth-child(3) { grid-column: span 2; grid-row: span 1; }
+            .bento-item:nth-child(4) { grid-column: span 2; grid-row: span 2; }
+            .bento-item:nth-child(5) { grid-column: span 2; grid-row: span 1; }
+            .bento-item:nth-child(6) { grid-column: span 2; grid-row: span 1; }
+            .bento-item:nth-child(7) { grid-column: span 4; grid-row: span 2; }
+            .bento-item:nth-child(8) { grid-column: span 2; grid-row: span 1; }
+            .bento-item:nth-child(9) { grid-column: span 2; grid-row: span 1; }
         }
 
         @media (max-width: 1024px) {
@@ -757,50 +677,78 @@
                 padding: 1rem 2rem;
             }
             
-            .about,
+            .about {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+                padding: 6rem 5%;
+            }
+
+            .about-image {
+                height: 400px;
+            }
+
+            .services {
+                grid-template-columns: 1fr;
+                padding: 6rem 5%;
+            }
+
             .contact {
                 grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-
-            .about-image::before {
-                display: none;
-            }
-
-            .projects-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
+                gap: 4rem;
+                padding: 6rem 5%;
             }
         }
 
         @media (max-width: 768px) {
-            .nav-links {
+            .nav-links, .contact-btn {
                 display: none;
             }
 
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero-content {
+                bottom: 20%;
+                left: 5%;
+                right: 5%;
+            }
+
             .hero-content h1 {
-                font-size: 1.8rem;
-                letter-spacing: 4px;
+                font-size: 2rem;
             }
 
-            .projects-grid {
-                grid-template-columns: 1fr;
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-auto-rows: 200px;
+            }
+            
+            .bento-item:nth-child(n) { 
+                grid-column: span 1; 
+                grid-row: span 1; 
+            }
+            
+            .bento-item:nth-child(1),
+            .bento-item:nth-child(4),
+            .bento-item:nth-child(7) { 
+                grid-column: span 2; 
             }
 
-            .contact-locations {
-                grid-template-columns: 1fr;
+            .about-stats {
+                gap: 2rem;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
             }
 
             .form-row {
                 grid-template-columns: 1fr;
             }
 
-            .footer-content {
+            footer {
                 flex-direction: column;
-                gap: 2rem;
+                gap: 1.5rem;
                 text-align: center;
             }
         }
@@ -820,6 +768,11 @@
             <li><a href="#contact">聯絡我們</a></li>
         </ul>
         <a href="#contact" class="contact-btn">預約諮詢</a>
+        <button class="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </nav>
 
     <!-- Hero Section -->
@@ -831,43 +784,36 @@
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <img src="https://www.loyu.com.tw/images/logo.png" alt="LOYU" class="hero-logo">
-            <h1>創造空間的無限可能</h1>
-            <p>承辦300件以上商辦空間設計規劃及裝修工程<br>設計規劃、充足經驗提供最佳建議<br>裝修工程、專業團隊完成高品質施工</p>
+            <h1>創造空間的<br>無限可能</h1>
+            <p>三十年深耕，三百件實績<br>專業設計團隊為您打造理想空間</p>
         </div>
-        <div class="scroll-indicator">
-            SCROLL
-        </div>
+        <div class="scroll-hint">SCROLL</div>
     </section>
 
     <!-- About Section -->
     <section class="about" id="about">
         <div class="about-content">
-            <h2>關於羅鈺</h2>
+            <h2>關於<span>羅鈺</span></h2>
             <p>
                 羅鈺團隊近 30 位設計師於中南台灣室內設計界耕耘近 30 年，
                 承辦 300 件以上商辦空間設計規劃及裝修工程。
             </p>
             <p>
-                設計規劃，充足經驗提供最佳建議；
-                裝修工程，專業團隊完成高品質施工；
+                設計規劃，充足經驗提供最佳建議；裝修工程，專業團隊完成高品質施工；
                 完工使用，十足信心擔保完工品質並勇於解決各項疑難雜症。
-            </p>
-            <p>
-                誠摯歡迎與我們聊聊您的空間需求，
-                我們會努力爭取您的信賴與支持。
             </p>
             <div class="about-stats">
                 <div class="stat">
-                    <div class="stat-number">30<span>年</span></div>
-                    <div class="stat-label">深耕經驗</div>
+                    <div class="stat-number">30</div>
+                    <div class="stat-label">年深耕經驗</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-number">300<span>+</span></div>
+                    <div class="stat-number">300+</div>
                     <div class="stat-label">完成案例</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-number">30<span>位</span></div>
-                    <div class="stat-label">專業團隊</div>
+                    <div class="stat-number">30</div>
+                    <div class="stat-label">專業設計師</div>
                 </div>
             </div>
         </div>
@@ -876,103 +822,98 @@
         </div>
     </section>
 
-    <!-- Projects Section -->
+    <!-- Projects Section - Bento Grid -->
     <section class="projects" id="projects">
         <div class="section-header">
             <h2>實績案例</h2>
-            <p>PROJECT</p>
+            <p>SELECTED WORKS</p>
         </div>
-        <div class="projects-filter">
-            <button class="filter-btn active">全部</button>
-            <button class="filter-btn">辦公空間</button>
-            <button class="filter-btn">住宅空間</button>
-            <button class="filter-btn">其他空間</button>
-        </div>
-        <div class="projects-grid">
-            <div class="project-card">
-                <img src="https://www.loyu.com.tw/images/upfiles/thumbs/projects_image_2022-05-25_loyu_3241f7f5c63661ff0c8460e121c778ab.jpg" alt="辦公空間">
-                <div class="project-overlay">
+        <div class="bento-grid">
+            <div class="bento-item">
+                <img src="https://www.loyu.com.tw/images/upfiles/thumbs/projects_image_2022-05-25_loyu_3241f7f5c63661ff0c8460e121c778ab.jpg" alt="正美生技">
+                <div class="bento-overlay">
                     <h3>正美生技</h3>
                     <span>辦公空間</span>
                 </div>
             </div>
-            <div class="project-card">
-                <img src="https://www.loyu.com.tw/images/upfiles/thumbs/projects_image_2022-05-25_loyu_430da747eb06d4b3506f523d67589adc.jpg" alt="辦公空間">
-                <div class="project-overlay">
-                    <h3>南投縣</h3>
+            <div class="bento-item">
+                <img src="https://www.loyu.com.tw/images/upfiles/thumbs/projects_image_2022-05-25_loyu_430da747eb06d4b3506f523d67589adc.jpg" alt="南投縣">
+                <div class="bento-overlay">
+                    <h3>南投縣政府</h3>
                     <span>辦公空間</span>
                 </div>
             </div>
-            <div class="project-card">
-                <img src="https://www.loyu.com.tw/images/upfiles/thumbs/projects_image_2022-05-25_loyu_40c5f341f8b48ddd074dda93da1859ee.jpg" alt="辦公空間">
-                <div class="project-overlay">
+            <div class="bento-item">
+                <img src="https://www.loyu.com.tw/images/upfiles/thumbs/projects_image_2022-05-25_loyu_40c5f341f8b48ddd074dda93da1859ee.jpg" alt="虹之門窗">
+                <div class="bento-overlay">
                     <h3>虹之門窗</h3>
                     <span>辦公空間</span>
                 </div>
             </div>
-            <div class="project-card">
-                <img src="https://www.loyu.com.tw/images/upfiles/thumbs/projects_image_2021-07-05_loyu_8f3ce0beb3971594d5079cb779ccee7b.jpg" alt="辦公空間">
-                <div class="project-overlay">
-                    <h3>彰化縣</h3>
+            <div class="bento-item">
+                <img src="https://www.loyu.com.tw/images/upfiles/thumbs/projects_image_2021-07-05_loyu_8f3ce0beb3971594d5079cb779ccee7b.jpg" alt="彰化案例">
+                <div class="bento-overlay">
+                    <h3>彰化企業總部</h3>
                     <span>辦公空間</span>
                 </div>
             </div>
-            <div class="project-card">
-                <img src="https://www.loyu.com.tw/images/upfiles/thumbs/projects_image_2021-07-05_loyu_a3a2b68dfa28871ded401c5b10a41021.jpg" alt="辦公空間">
-                <div class="project-overlay">
+            <div class="bento-item">
+                <img src="https://www.loyu.com.tw/images/upfiles/thumbs/projects_image_2021-07-05_loyu_a3a2b68dfa28871ded401c5b10a41021.jpg" alt="曲直國際">
+                <div class="bento-overlay">
                     <h3>曲直國際</h3>
                     <span>辦公空間</span>
                 </div>
             </div>
-            <div class="project-card">
-                <img src="https://www.loyu.com.tw/images/upfiles/thumbs/projects_image_2018-05-08_loyu_547302ad3cfa4c7ea5024a3b5c55b530.jpg" alt="住宅空間">
-                <div class="project-overlay">
+            <div class="bento-item">
+                <img src="https://www.loyu.com.tw/images/upfiles/thumbs/projects_image_2018-05-08_loyu_547302ad3cfa4c7ea5024a3b5c55b530.jpg" alt="住宅設計">
+                <div class="bento-overlay">
                     <h3>現代住宅</h3>
                     <span>住宅空間</span>
                 </div>
             </div>
-            <div class="project-card">
-                <img src="https://www.loyu.com.tw/images/upfiles/thumbs/projects_image_2018-05-09_loyu_0c300b14b50ab4fcd3848cbd8205c76a.jpg" alt="住宅空間">
-                <div class="project-overlay">
+            <div class="bento-item">
+                <img src="https://www.loyu.com.tw/images/upfiles/thumbs/projects_image_2019-01-11_loyu_b6a55420ce75c596f55fac65296943de.jpg" alt="台中案例">
+                <div class="bento-overlay">
+                    <h3>台中商辦</h3>
+                    <span>辦公空間</span>
+                </div>
+            </div>
+            <div class="bento-item">
+                <img src="https://www.loyu.com.tw/images/upfiles/thumbs/projects_image_2018-05-09_loyu_0c300b14b50ab4fcd3848cbd8205c76a.jpg" alt="溫馨居家">
+                <div class="bento-overlay">
                     <h3>溫馨居家</h3>
                     <span>住宅空間</span>
                 </div>
             </div>
-            <div class="project-card">
-                <img src="https://www.loyu.com.tw/images/upfiles/thumbs/projects_image_2019-01-11_loyu_b6a55420ce75c596f55fac65296943de.jpg" alt="辦公空間">
-                <div class="project-overlay">
-                    <h3>台中市</h3>
-                    <span>辦公空間</span>
+            <div class="bento-item">
+                <img src="https://www.loyu.com.tw/images/upfiles/thumbs/projects_image_2019-01-11_loyu_87a60cda6e4966f8633cb22a798b009f.jpg" alt="其他空間">
+                <div class="bento-overlay">
+                    <h3>接待中心</h3>
+                    <span>商業空間</span>
                 </div>
             </div>
         </div>
         <div class="view-more">
-            <a href="#">查看更多案例 →</a>
+            <a href="#">探索更多案例</a>
         </div>
     </section>
 
     <!-- Services Section -->
     <section class="services" id="services">
-        <div class="section-header">
-            <h2>服務項目</h2>
-            <p>OUR SERVICES</p>
+        <div class="service-card">
+            <div class="service-icon">🏢</div>
+            <h3>辦公空間</h3>
+            <p>打造高效率、具品味的工作環境<br>提升企業形象與員工幸福感</p>
         </div>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon">🏢</div>
-                <h3>辦公空間</h3>
-                <p>打造高效率、具品味的工作環境<br>提升企業形象與員工幸福感</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🏠</div>
-                <h3>住宅空間</h3>
-                <p>為您量身打造舒適宜居的生活空間<br>實現理想中的家</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🏬</div>
-                <h3>其他空間</h3>
-                <p>商業展示、餐飲空間、公共設施<br>多元空間設計規劃</p>
-            </div>
+        <div class="service-card">
+            <div class="service-icon">🏠</div>
+            <h3>住宅空間</h3>
+            <p>為您量身打造舒適宜居的生活空間<br>實現理想中的家</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🏬</div>
+            <h3>其他空間</h3>
+            <p>商業展示、餐飲空間、公共設施<br>多元空間設計規劃</p>
         </div>
     </section>
 
@@ -982,7 +923,7 @@
             <h2>設計團隊</h2>
             <p>OUR TEAM</p>
         </div>
-        <div class="team-grid">
+        <div class="team-scroll">
             <div class="team-member">
                 <img src="https://www.loyu.com.tw/images/upfiles/employee_2018-05-04_loyu_aebce22be84cc1e37df30bb7de4cc1c9.jpg" alt="羅鈺">
                 <h4>羅鈺</h4>
@@ -1008,6 +949,16 @@
                 <h4>邱天佑</h4>
                 <span>設計企劃經理</span>
             </div>
+            <div class="team-member">
+                <img src="https://www.loyu.com.tw/images/upfiles/employee_2018-05-08_loyu_b859b9d8f592067a0c58c1faeb9cd3a3.jpg" alt="陳俊呈">
+                <h4>陳俊呈</h4>
+                <span>設計企劃經理</span>
+            </div>
+            <div class="team-member">
+                <img src="https://www.loyu.com.tw/images/upfiles/employee_2018-05-08_loyu_c1c8770a79e16d86dc9ee75a61faff24.jpg" alt="賴琦樺">
+                <h4>賴琦樺</h4>
+                <span>設計企劃經理</span>
+            </div>
         </div>
     </section>
 
@@ -1021,19 +972,19 @@
             </p>
             <div class="contact-locations">
                 <div class="location">
-                    <h4>📍 台中辦公室</h4>
+                    <h4>台中辦公室</h4>
                     <p>
                         台中市西屯區青海路二段151號2樓之3<br>
-                        T: 04-22566695<br>
-                        F: 04-22566612
+                        T: 04-22566695 ｜ F: 04-22566612<br>
+                        E: loyudesign@loyu.com.tw
                     </p>
                 </div>
                 <div class="location">
-                    <h4>📍 高雄辦公室</h4>
+                    <h4>高雄辦公室</h4>
                     <p>
                         高雄市前鎮區中山二路2號20樓之1<br>
-                        T: 07-3411501<br>
-                        F: 07-2722905
+                        T: 07-3411501 ｜ F: 07-2722905<br>
+                        E: loyu.kao@msa.hinet.net
                     </p>
                 </div>
             </div>
@@ -1044,21 +995,21 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>姓名 *</label>
-                        <input type="text" placeholder="請輸入您的姓名" required>
+                        <input type="text" required>
                     </div>
                     <div class="form-group">
                         <label>電話 *</label>
-                        <input type="tel" placeholder="請輸入聯絡電話" required>
+                        <input type="tel" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" placeholder="請輸入 Email">
+                    <input type="email">
                 </div>
                 <div class="form-group">
                     <label>服務類型</label>
                     <select>
-                        <option>請選擇服務類型</option>
+                        <option>請選擇</option>
                         <option>辦公空間設計</option>
                         <option>住宅空間設計</option>
                         <option>其他空間設計</option>
@@ -1066,7 +1017,7 @@
                 </div>
                 <div class="form-group">
                     <label>需求說明</label>
-                    <textarea placeholder="請簡述您的空間需求"></textarea>
+                    <textarea></textarea>
                 </div>
                 <button type="submit" class="submit-btn">送出諮詢</button>
             </form>
@@ -1075,19 +1026,17 @@
 
     <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-logo">
-                <img src="https://www.loyu.com.tw/images/logo.png" alt="LOYU">
-            </div>
-            <div class="footer-links">
-                <a href="#about">關於羅鈺</a>
-                <a href="#projects">實績案例</a>
-                <a href="#services">服務項目</a>
-                <a href="#contact">聯絡我們</a>
-            </div>
-            <div class="copyright">
-                © 2024 羅鈺室內設計 LOYU Interior Design. All Rights Reserved.
-            </div>
+        <div class="footer-logo">
+            <img src="https://www.loyu.com.tw/images/logo.png" alt="LOYU">
+        </div>
+        <div class="footer-links">
+            <a href="#about">關於羅鈺</a>
+            <a href="#projects">實績案例</a>
+            <a href="#services">服務項目</a>
+            <a href="#contact">聯絡我們</a>
+        </div>
+        <div class="copyright">
+            © 2024 羅鈺室內設計 All Rights Reserved.
         </div>
     </footer>
 
@@ -1113,24 +1062,36 @@
             });
         });
 
-        // Filter buttons
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-
         // Navbar scroll effect
         window.addEventListener('scroll', () => {
             const nav = document.querySelector('nav');
-            if (window.scrollY > 100) {
-                nav.style.padding = '0.8rem 4rem';
-                nav.style.boxShadow = '0 2px 30px rgba(0,0,0,0.1)';
+            if (window.scrollY > 50) {
+                nav.style.padding = '0.6rem 4rem';
             } else {
                 nav.style.padding = '1rem 4rem';
-                nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.05)';
             }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.bento-item, .service-card, .team-member').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
         });
     </script>
 </body>
