@@ -15,9 +15,10 @@
         }
 
         :root {
-            --primary-dark: #1a1a1a;
-            --primary-light: #f5f5f3;
-            --accent: #8b7355;
+            --primary: #c41230;
+            --primary-dark: #a00f28;
+            --dark: #1a1a1a;
+            --light: #f5f5f3;
             --text-dark: #333;
             --text-light: #666;
             --white: #fff;
@@ -37,36 +38,37 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            padding: 1.5rem 4rem;
+            padding: 1rem 4rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
             transition: all 0.3s ease;
         }
 
         .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            font-weight: 500;
-            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
             text-decoration: none;
-            letter-spacing: 2px;
         }
 
-        .logo span {
-            font-family: 'Noto Sans TC', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 300;
-            display: block;
-            letter-spacing: 4px;
-            color: var(--text-light);
+        .logo img {
+            height: 45px;
+        }
+
+        .logo-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--dark);
+            letter-spacing: 1px;
         }
 
         .nav-links {
             display: flex;
-            gap: 3rem;
+            gap: 2.5rem;
             list-style: none;
         }
 
@@ -78,6 +80,11 @@
             letter-spacing: 1px;
             position: relative;
             padding-bottom: 4px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
         }
 
         .nav-links a::after {
@@ -86,8 +93,8 @@
             bottom: 0;
             left: 0;
             width: 0;
-            height: 1px;
-            background: var(--accent);
+            height: 2px;
+            background: var(--primary);
             transition: width 0.3s ease;
         }
 
@@ -95,19 +102,18 @@
             width: 100%;
         }
 
-        .lang-switch {
-            font-size: 0.85rem;
-            color: var(--text-light);
-        }
-
-        .lang-switch a {
-            color: inherit;
+        .contact-btn {
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.6rem 1.5rem;
             text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            transition: background 0.3s;
         }
 
-        .lang-switch a.active {
-            color: var(--primary-dark);
-            font-weight: 500;
+        .contact-btn:hover {
+            background: var(--primary-dark);
         }
 
         /* Hero Section */
@@ -120,23 +126,36 @@
             overflow: hidden;
         }
 
-        .hero-bg {
+        .hero-slider {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #e8e4df 0%, #d4cdc4 100%);
         }
 
-        .hero-image {
+        .hero-slide {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2000&q=80') center/cover;
-            opacity: 0.9;
+            opacity: 0;
+            transition: opacity 1s ease;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-slide:nth-child(1) {
+            background-image: url('https://www.loyu.com.tw/images/slick/slick02_l.jpg');
+        }
+
+        .hero-slide:nth-child(2) {
+            background-image: url('https://www.loyu.com.tw/images/slick/slick03_l.jpg');
         }
 
         .hero-overlay {
@@ -145,7 +164,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 100%);
         }
 
         .hero-content {
@@ -153,23 +172,32 @@
             z-index: 10;
             text-align: center;
             color: var(--white);
-            max-width: 800px;
+            max-width: 900px;
             padding: 0 2rem;
         }
 
+        .hero-logo {
+            width: 180px;
+            margin-bottom: 2rem;
+            filter: brightness(0) invert(1);
+        }
+
         .hero-content h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            font-weight: 400;
+            font-size: 2.8rem;
+            font-weight: 300;
             letter-spacing: 8px;
             margin-bottom: 1.5rem;
+            line-height: 1.4;
         }
 
         .hero-content p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 300;
             letter-spacing: 3px;
             opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 2;
         }
 
         .scroll-indicator {
@@ -178,25 +206,25 @@
             left: 50%;
             transform: translateX(-50%);
             color: var(--white);
-            font-size: 0.8rem;
-            letter-spacing: 2px;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.8rem;
         }
 
         .scroll-indicator::after {
             content: '';
             width: 1px;
-            height: 40px;
+            height: 50px;
             background: var(--white);
             animation: scrollPulse 2s infinite;
         }
 
         @keyframes scrollPulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
+            0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
+            50% { opacity: 1; transform: scaleY(1); }
         }
 
         /* About Section */
@@ -211,11 +239,22 @@
         }
 
         .about-content h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 400;
             margin-bottom: 2rem;
-            color: var(--primary-dark);
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .about-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
         }
 
         .about-content p {
@@ -229,65 +268,124 @@
             display: flex;
             gap: 3rem;
             margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
         }
 
         .stat {
-            text-align: center;
+            text-align: left;
         }
 
         .stat-number {
-            font-family: 'Playfair Display', serif;
             font-size: 3rem;
-            color: var(--accent);
+            font-weight: 300;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .stat-number span {
+            font-size: 1.5rem;
         }
 
         .stat-label {
             font-size: 0.85rem;
             color: var(--text-light);
             letter-spacing: 1px;
+            margin-top: 0.5rem;
         }
 
         .about-image {
-            height: 500px;
-            background: url('https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1000&q=80') center/cover;
+            height: 550px;
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100%;
+            height: 100%;
+            border: 3px solid var(--primary);
+            z-index: -1;
         }
 
         /* Projects Section */
         .projects {
-            background: var(--primary-light);
+            background: var(--light);
             padding: 8rem 4rem;
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 5rem;
+            margin-bottom: 4rem;
         }
 
         .section-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 400;
-            color: var(--primary-dark);
-            margin-bottom: 1rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
         }
 
         .section-header p {
             color: var(--text-light);
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+        }
+
+        .projects-filter {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .filter-btn {
+            background: none;
+            border: none;
             font-size: 0.95rem;
-            letter-spacing: 2px;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            position: relative;
+            transition: color 0.3s;
+            font-family: inherit;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            color: var(--primary);
+        }
+
+        .filter-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 2px;
+            background: var(--primary);
         }
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
             max-width: 1400px;
             margin: 0 auto;
         }
 
         .project-card {
             position: relative;
-            height: 400px;
+            aspect-ratio: 1;
             overflow: hidden;
             cursor: pointer;
         }
@@ -300,85 +398,120 @@
         }
 
         .project-card:hover img {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
         .project-overlay {
             position: absolute;
-            bottom: 0;
+            top: 0;
             left: 0;
             right: 0;
-            padding: 2rem;
-            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
-            color: var(--white);
-            transform: translateY(20px);
+            bottom: 0;
+            background: rgba(196, 18, 48, 0.85);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             opacity: 0;
-            transition: all 0.4s ease;
+            transition: opacity 0.4s ease;
+            color: var(--white);
+            padding: 1rem;
+            text-align: center;
         }
 
         .project-card:hover .project-overlay {
-            transform: translateY(0);
             opacity: 1;
         }
 
         .project-overlay h3 {
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: 400;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
+            letter-spacing: 1px;
         }
 
         .project-overlay span {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             opacity: 0.8;
         }
 
-        /* Categories */
-        .categories {
+        .view-more {
+            display: block;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .view-more a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            padding-bottom: 4px;
+            border-bottom: 1px solid var(--primary);
+            transition: all 0.3s;
+        }
+
+        .view-more a:hover {
+            color: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+
+        /* Services Section */
+        .services {
             padding: 8rem 4rem;
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        .categories-grid {
+        .services-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 3rem;
+            gap: 0;
         }
 
-        .category-card {
+        .service-card {
+            padding: 4rem 3rem;
             text-align: center;
-            padding: 3rem 2rem;
-            background: var(--white);
             border: 1px solid #eee;
             transition: all 0.3s ease;
             cursor: pointer;
+            position: relative;
         }
 
-        .category-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-5px);
+        .service-card:hover {
+            background: var(--primary);
+            border-color: var(--primary);
         }
 
-        .category-icon {
-            width: 60px;
-            height: 60px;
+        .service-card:hover * {
+            color: var(--white);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
             margin: 0 auto 1.5rem;
-            border: 1px solid var(--accent);
-            border-radius: 50%;
+            border: 2px solid var(--primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            transition: all 0.3s;
         }
 
-        .category-card h3 {
-            font-size: 1.2rem;
+        .service-card:hover .service-icon {
+            border-color: var(--white);
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
             font-weight: 400;
             margin-bottom: 1rem;
-            color: var(--primary-dark);
+            color: var(--dark);
+            letter-spacing: 2px;
         }
 
-        .category-card p {
+        .service-card p {
             font-size: 0.9rem;
             color: var(--text-light);
             line-height: 1.8;
@@ -386,7 +519,7 @@
 
         /* Team Section */
         .team {
-            background: var(--primary-dark);
+            background: var(--dark);
             color: var(--white);
             padding: 8rem 4rem;
         }
@@ -399,35 +532,43 @@
             color: rgba(255,255,255,0.6);
         }
 
-        .team-intro {
-            max-width: 700px;
-            margin: 0 auto 4rem;
-            text-align: center;
-            font-size: 1.1rem;
-            line-height: 2;
-            color: rgba(255,255,255,0.8);
-        }
-
-        .team-stats {
+        .team-grid {
             display: flex;
             justify-content: center;
-            gap: 6rem;
+            gap: 2rem;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .team-stat {
+        .team-member {
             text-align: center;
+            width: 160px;
         }
 
-        .team-stat-number {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            color: var(--accent);
+        .team-member img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            filter: grayscale(100%);
+            transition: filter 0.3s;
         }
 
-        .team-stat-label {
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            opacity: 0.7;
+        .team-member:hover img {
+            filter: grayscale(0%);
+        }
+
+        .team-member h4 {
+            font-size: 1rem;
+            font-weight: 400;
+            margin-bottom: 0.3rem;
+        }
+
+        .team-member span {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
         }
 
         /* Contact Section */
@@ -441,54 +582,58 @@
         }
 
         .contact-info h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 400;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 1rem;
         }
 
-        .contact-info p {
+        .contact-info h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .contact-info > p {
             color: var(--text-light);
             margin-bottom: 3rem;
             line-height: 1.8;
         }
 
-        .contact-details {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+        .contact-locations {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
         }
 
-        .contact-item {
-            display: flex;
-            gap: 1rem;
-            align-items: flex-start;
+        .location {
+            padding: 1.5rem;
+            background: var(--light);
         }
 
-        .contact-item-icon {
-            width: 40px;
-            height: 40px;
-            border: 1px solid var(--accent);
-            border-radius: 50%;
+        .location h4 {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--primary);
+            margin-bottom: 1rem;
             display: flex;
             align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
+            gap: 0.5rem;
         }
 
-        .contact-item-content h4 {
+        .location p {
             font-size: 0.9rem;
-            font-weight: 500;
-            margin-bottom: 0.3rem;
-        }
-
-        .contact-item-content p {
-            font-size: 0.9rem;
-            margin: 0;
+            color: var(--text-light);
+            line-height: 1.8;
         }
 
         .contact-form {
-            background: var(--primary-light);
+            background: var(--light);
             padding: 3rem;
         }
 
@@ -498,8 +643,18 @@
             margin-bottom: 2rem;
         }
 
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
         }
 
         .form-group label {
@@ -510,20 +665,22 @@
         }
 
         .form-group input,
-        .form-group textarea {
+        .form-group textarea,
+        .form-group select {
             width: 100%;
-            padding: 1rem;
+            padding: 0.9rem 1rem;
             border: 1px solid #ddd;
             background: var(--white);
             font-family: inherit;
-            font-size: 1rem;
+            font-size: 0.95rem;
             transition: border-color 0.3s;
         }
 
         .form-group input:focus,
-        .form-group textarea:focus {
+        .form-group textarea:focus,
+        .form-group select:focus {
             outline: none;
-            border-color: var(--accent);
+            border-color: var(--primary);
         }
 
         .form-group textarea {
@@ -534,7 +691,7 @@
         .submit-btn {
             width: 100%;
             padding: 1rem;
-            background: var(--primary-dark);
+            background: var(--primary);
             color: var(--white);
             border: none;
             font-size: 0.95rem;
@@ -544,34 +701,38 @@
         }
 
         .submit-btn:hover {
-            background: var(--accent);
+            background: var(--primary-dark);
         }
 
         /* Footer */
         footer {
-            background: var(--primary-dark);
+            background: var(--dark);
             color: var(--white);
             padding: 4rem;
-            text-align: center;
         }
 
-        .footer-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            filter: brightness(0) invert(1);
         }
 
         .footer-links {
             display: flex;
-            justify-content: center;
             gap: 2rem;
-            margin: 2rem 0;
         }
 
         .footer-links a {
             color: rgba(255,255,255,0.7);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             transition: color 0.3s;
         }
 
@@ -580,50 +741,67 @@
         }
 
         .copyright {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: rgba(255,255,255,0.5);
-            margin-top: 2rem;
         }
 
         /* Responsive */
+        @media (max-width: 1200px) {
+            .projects-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
         @media (max-width: 1024px) {
+            nav {
+                padding: 1rem 2rem;
+            }
+            
             .about,
             .contact {
                 grid-template-columns: 1fr;
                 gap: 3rem;
             }
 
-            .projects-grid,
-            .categories-grid {
+            .about-image::before {
+                display: none;
+            }
+
+            .projects-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 768px) {
-            nav {
-                padding: 1rem 2rem;
-            }
-
             .nav-links {
                 display: none;
             }
 
             .hero-content h1 {
-                font-size: 2.5rem;
+                font-size: 1.8rem;
+                letter-spacing: 4px;
             }
 
-            .projects-grid,
-            .categories-grid {
+            .projects-grid {
                 grid-template-columns: 1fr;
             }
 
-            .team-stats {
-                flex-direction: column;
-                gap: 2rem;
+            .contact-locations {
+                grid-template-columns: 1fr;
             }
 
-            .about-stats {
-                flex-wrap: wrap;
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
             }
         }
     </style>
@@ -632,8 +810,7 @@
     <!-- Navigation -->
     <nav>
         <a href="#" class="logo">
-            LOYU
-            <span>羅鈺設計</span>
+            <img src="https://www.loyu.com.tw/images/logo.png" alt="LOYU">
         </a>
         <ul class="nav-links">
             <li><a href="#about">關於羅鈺</a></li>
@@ -642,19 +819,20 @@
             <li><a href="#team">設計團隊</a></li>
             <li><a href="#contact">聯絡我們</a></li>
         </ul>
-        <div class="lang-switch">
-            <a href="#" class="active">繁中</a> / <a href="#">EN</a>
-        </div>
+        <a href="#contact" class="contact-btn">預約諮詢</a>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-image"></div>
+        <div class="hero-slider">
+            <div class="hero-slide active"></div>
+            <div class="hero-slide"></div>
+        </div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1>LOYU DESIGN</h1>
-            <p>創造空間的無限可能 | 台中・高雄</p>
+            <img src="https://www.loyu.com.tw/images/logo.png" alt="LOYU" class="hero-logo">
+            <h1>創造空間的無限可能</h1>
+            <p>承辦300件以上商辦空間設計規劃及裝修工程<br>設計規劃、充足經驗提供最佳建議<br>裝修工程、專業團隊完成高品質施工</p>
         </div>
         <div class="scroll-indicator">
             SCROLL
@@ -667,103 +845,133 @@
             <h2>關於羅鈺</h2>
             <p>
                 羅鈺團隊近 30 位設計師於中南台灣室內設計界耕耘近 30 年，
-                承辦超過 300 件商辦空間設計規劃及裝修工程。
+                承辦 300 件以上商辦空間設計規劃及裝修工程。
             </p>
             <p>
-                我們相信，優秀的設計能夠創造價值。從設計規劃到裝修工程，
-                以專業團隊完成高品質施工，十足信心擔保完工品質。
+                設計規劃，充足經驗提供最佳建議；
+                裝修工程，專業團隊完成高品質施工；
+                完工使用，十足信心擔保完工品質並勇於解決各項疑難雜症。
+            </p>
+            <p>
+                誠摯歡迎與我們聊聊您的空間需求，
+                我們會努力爭取您的信賴與支持。
             </p>
             <div class="about-stats">
                 <div class="stat">
-                    <div class="stat-number">30</div>
-                    <div class="stat-label">年經驗</div>
+                    <div class="stat-number">30<span>年</span></div>
+                    <div class="stat-label">深耕經驗</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-number">300+</div>
+                    <div class="stat-number">300<span>+</span></div>
                     <div class="stat-label">完成案例</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-number">30</div>
-                    <div class="stat-label">設計團隊</div>
+                    <div class="stat-number">30<span>位</span></div>
+                    <div class="stat-label">專業團隊</div>
                 </div>
             </div>
         </div>
-        <div class="about-image"></div>
+        <div class="about-image">
+            <img src="https://www.loyu.com.tw/images/upfiles/thumbs/projects_image_2022-05-25_loyu_3241f7f5c63661ff0c8460e121c778ab.jpg" alt="羅鈺設計案例">
+        </div>
     </section>
 
     <!-- Projects Section -->
     <section class="projects" id="projects">
         <div class="section-header">
             <h2>實績案例</h2>
-            <p>SELECTED WORKS</p>
+            <p>PROJECT</p>
+        </div>
+        <div class="projects-filter">
+            <button class="filter-btn active">全部</button>
+            <button class="filter-btn">辦公空間</button>
+            <button class="filter-btn">住宅空間</button>
+            <button class="filter-btn">其他空間</button>
         </div>
         <div class="projects-grid">
             <div class="project-card">
-                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="辦公空間">
+                <img src="https://www.loyu.com.tw/images/upfiles/thumbs/projects_image_2022-05-25_loyu_3241f7f5c63661ff0c8460e121c778ab.jpg" alt="辦公空間">
                 <div class="project-overlay">
-                    <h3>科技公司總部</h3>
-                    <span>辦公空間 | 台中</span>
+                    <h3>正美生技</h3>
+                    <span>辦公空間</span>
                 </div>
             </div>
             <div class="project-card">
-                <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=800&q=80" alt="辦公空間">
+                <img src="https://www.loyu.com.tw/images/upfiles/thumbs/projects_image_2022-05-25_loyu_430da747eb06d4b3506f523d67589adc.jpg" alt="辦公空間">
                 <div class="project-overlay">
-                    <h3>金融機構辦公室</h3>
-                    <span>辦公空間 | 高雄</span>
+                    <h3>南投縣</h3>
+                    <span>辦公空間</span>
                 </div>
             </div>
             <div class="project-card">
-                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="住宅空間">
+                <img src="https://www.loyu.com.tw/images/upfiles/thumbs/projects_image_2022-05-25_loyu_40c5f341f8b48ddd074dda93da1859ee.jpg" alt="辦公空間">
                 <div class="project-overlay">
-                    <h3>現代住宅設計</h3>
-                    <span>住宅空間 | 台中</span>
+                    <h3>虹之門窗</h3>
+                    <span>辦公空間</span>
                 </div>
             </div>
             <div class="project-card">
-                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80" alt="住宅空間">
+                <img src="https://www.loyu.com.tw/images/upfiles/thumbs/projects_image_2021-07-05_loyu_8f3ce0beb3971594d5079cb779ccee7b.jpg" alt="辦公空間">
                 <div class="project-overlay">
-                    <h3>豪宅室內規劃</h3>
-                    <span>住宅空間 | 台中</span>
+                    <h3>彰化縣</h3>
+                    <span>辦公空間</span>
                 </div>
             </div>
             <div class="project-card">
-                <img src="https://images.unsplash.com/photo-1572025442646-866d16c84a54?auto=format&fit=crop&w=800&q=80" alt="商業空間">
+                <img src="https://www.loyu.com.tw/images/upfiles/thumbs/projects_image_2021-07-05_loyu_a3a2b68dfa28871ded401c5b10a41021.jpg" alt="辦公空間">
                 <div class="project-overlay">
-                    <h3>精品展示空間</h3>
-                    <span>商業空間 | 高雄</span>
+                    <h3>曲直國際</h3>
+                    <span>辦公空間</span>
                 </div>
             </div>
             <div class="project-card">
-                <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=800&q=80" alt="辦公空間">
+                <img src="https://www.loyu.com.tw/images/upfiles/thumbs/projects_image_2018-05-08_loyu_547302ad3cfa4c7ea5024a3b5c55b530.jpg" alt="住宅空間">
                 <div class="project-overlay">
-                    <h3>企業總部大樓</h3>
-                    <span>辦公空間 | 台中</span>
+                    <h3>現代住宅</h3>
+                    <span>住宅空間</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="https://www.loyu.com.tw/images/upfiles/thumbs/projects_image_2018-05-09_loyu_0c300b14b50ab4fcd3848cbd8205c76a.jpg" alt="住宅空間">
+                <div class="project-overlay">
+                    <h3>溫馨居家</h3>
+                    <span>住宅空間</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="https://www.loyu.com.tw/images/upfiles/thumbs/projects_image_2019-01-11_loyu_b6a55420ce75c596f55fac65296943de.jpg" alt="辦公空間">
+                <div class="project-overlay">
+                    <h3>台中市</h3>
+                    <span>辦公空間</span>
                 </div>
             </div>
         </div>
+        <div class="view-more">
+            <a href="#">查看更多案例 →</a>
+        </div>
     </section>
 
-    <!-- Categories Section -->
-    <section class="categories" id="services">
+    <!-- Services Section -->
+    <section class="services" id="services">
         <div class="section-header">
             <h2>服務項目</h2>
             <p>OUR SERVICES</p>
         </div>
-        <div class="categories-grid">
-            <div class="category-card">
-                <div class="category-icon">🏢</div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🏢</div>
                 <h3>辦公空間</h3>
-                <p>打造高效率、具品味的工作環境，提升企業形象與員工幸福感</p>
+                <p>打造高效率、具品味的工作環境<br>提升企業形象與員工幸福感</p>
             </div>
-            <div class="category-card">
-                <div class="category-icon">🏠</div>
+            <div class="service-card">
+                <div class="service-icon">🏠</div>
                 <h3>住宅空間</h3>
-                <p>為您量身打造舒適宜居的生活空間，實現理想中的家</p>
+                <p>為您量身打造舒適宜居的生活空間<br>實現理想中的家</p>
             </div>
-            <div class="category-card">
-                <div class="category-icon">🏬</div>
+            <div class="service-card">
+                <div class="service-icon">🏬</div>
                 <h3>其他空間</h3>
-                <p>商業展示、餐飲空間、公共設施等多元空間設計規劃</p>
+                <p>商業展示、餐飲空間、公共設施<br>多元空間設計規劃</p>
             </div>
         </div>
     </section>
@@ -774,22 +982,31 @@
             <h2>設計團隊</h2>
             <p>OUR TEAM</p>
         </div>
-        <p class="team-intro">
-            我們擁有專業且經驗豐富的設計團隊，橫跨台中與高雄兩地，
-            致力於為每一位客戶提供最佳的設計方案與完美的施工品質。
-        </p>
-        <div class="team-stats">
-            <div class="team-stat">
-                <div class="team-stat-number">30+</div>
-                <div class="team-stat-label">專業設計師</div>
+        <div class="team-grid">
+            <div class="team-member">
+                <img src="https://www.loyu.com.tw/images/upfiles/employee_2018-05-04_loyu_aebce22be84cc1e37df30bb7de4cc1c9.jpg" alt="羅鈺">
+                <h4>羅鈺</h4>
+                <span>創辦人</span>
             </div>
-            <div class="team-stat">
-                <div class="team-stat-number">2</div>
-                <div class="team-stat-label">服務據點</div>
+            <div class="team-member">
+                <img src="https://www.loyu.com.tw/images/upfiles/employee_2018-05-08_loyu_8537300800c7d5d930a5e1b53ee31feb.jpg" alt="許慶安">
+                <h4>許慶安</h4>
+                <span>總經理</span>
             </div>
-            <div class="team-stat">
-                <div class="team-stat-number">30</div>
-                <div class="team-stat-label">年深耕經驗</div>
+            <div class="team-member">
+                <img src="https://www.loyu.com.tw/images/upfiles/employee_2018-05-08_loyu_da0d5a183faa12a70ee1633d58518b71.jpg" alt="余文樂">
+                <h4>余文樂</h4>
+                <span>設計創意總監</span>
+            </div>
+            <div class="team-member">
+                <img src="https://www.loyu.com.tw/images/upfiles/employee_2018-05-08_loyu_f2f96541e7244b2ee8749ab5abc74448.jpg" alt="潘淑彥">
+                <h4>潘淑彥</h4>
+                <span>設計企劃協理</span>
+            </div>
+            <div class="team-member">
+                <img src="https://www.loyu.com.tw/images/upfiles/employee_2018-05-08_loyu_53ccc707d5c582e085751f4f9f3deaba.jpg" alt="邱天佑">
+                <h4>邱天佑</h4>
+                <span>設計企劃經理</span>
             </div>
         </div>
     </section>
@@ -799,54 +1016,53 @@
         <div class="contact-info">
             <h2>聯絡我們</h2>
             <p>
-                誠摯歡迎與我們聊聊您的空間需求，
+                誠摯歡迎與我們聊聊您的空間需求，<br>
                 我們會努力爭取您的信賴與支持。
             </p>
-            <div class="contact-details">
-                <div class="contact-item">
-                    <div class="contact-item-icon">📍</div>
-                    <div class="contact-item-content">
-                        <h4>台中辦公室</h4>
-                        <p>台中市西區...</p>
-                    </div>
+            <div class="contact-locations">
+                <div class="location">
+                    <h4>📍 台中辦公室</h4>
+                    <p>
+                        台中市西屯區青海路二段151號2樓之3<br>
+                        T: 04-22566695<br>
+                        F: 04-22566612
+                    </p>
                 </div>
-                <div class="contact-item">
-                    <div class="contact-item-icon">📍</div>
-                    <div class="contact-item-content">
-                        <h4>高雄辦公室</h4>
-                        <p>高雄市...</p>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-item-icon">📧</div>
-                    <div class="contact-item-content">
-                        <h4>Email</h4>
-                        <p>info@loyu.com.tw</p>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-item-icon">📞</div>
-                    <div class="contact-item-content">
-                        <h4>電話</h4>
-                        <p>04-xxxx-xxxx</p>
-                    </div>
+                <div class="location">
+                    <h4>📍 高雄辦公室</h4>
+                    <p>
+                        高雄市前鎮區中山二路2號20樓之1<br>
+                        T: 07-3411501<br>
+                        F: 07-2722905
+                    </p>
                 </div>
             </div>
         </div>
         <div class="contact-form">
             <h3>預約諮詢</h3>
             <form>
-                <div class="form-group">
-                    <label>姓名</label>
-                    <input type="text" placeholder="請輸入您的姓名">
-                </div>
-                <div class="form-group">
-                    <label>電話</label>
-                    <input type="tel" placeholder="請輸入聯絡電話">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>姓名 *</label>
+                        <input type="text" placeholder="請輸入您的姓名" required>
+                    </div>
+                    <div class="form-group">
+                        <label>電話 *</label>
+                        <input type="tel" placeholder="請輸入聯絡電話" required>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Email</label>
                     <input type="email" placeholder="請輸入 Email">
+                </div>
+                <div class="form-group">
+                    <label>服務類型</label>
+                    <select>
+                        <option>請選擇服務類型</option>
+                        <option>辦公空間設計</option>
+                        <option>住宅空間設計</option>
+                        <option>其他空間設計</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>需求說明</label>
@@ -859,16 +1075,63 @@
 
     <!-- Footer -->
     <footer>
-        <div class="footer-logo">LOYU 羅鈺設計</div>
-        <div class="footer-links">
-            <a href="#about">關於羅鈺</a>
-            <a href="#projects">實績案例</a>
-            <a href="#services">服務項目</a>
-            <a href="#contact">聯絡我們</a>
-        </div>
-        <div class="copyright">
-            © 2024 羅鈺室內設計 LOYU Interior Design. All Rights Reserved.
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="https://www.loyu.com.tw/images/logo.png" alt="LOYU">
+            </div>
+            <div class="footer-links">
+                <a href="#about">關於羅鈺</a>
+                <a href="#projects">實績案例</a>
+                <a href="#services">服務項目</a>
+                <a href="#contact">聯絡我們</a>
+            </div>
+            <div class="copyright">
+                © 2024 羅鈺室內設計 LOYU Interior Design. All Rights Reserved.
+            </div>
         </div>
     </footer>
+
+    <script>
+        // Hero slider
+        const slides = document.querySelectorAll('.hero-slide');
+        let currentSlide = 0;
+
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 5000);
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.padding = '0.8rem 4rem';
+                nav.style.boxShadow = '0 2px 30px rgba(0,0,0,0.1)';
+            } else {
+                nav.style.padding = '1rem 4rem';
+                nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.05)';
+            }
+        });
+    </script>
 </body>
 </html>
