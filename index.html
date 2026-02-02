@@ -52,36 +52,91 @@
         }
 
         .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-size: 0.9rem;
-            font-weight: 400;
-            letter-spacing: 1px;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
+            display: none;
         }
 
         .contact-btn {
-            background: var(--primary);
-            color: var(--white);
-            padding: 0.6rem 1.5rem;
-            text-decoration: none;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            transition: background 0.3s;
+            display: none;
         }
 
-        .contact-btn:hover {
+        /* Slide-out Menu Panel */
+        .menu-panel {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 320px;
+            height: 100vh;
+            background: var(--white);
+            z-index: 1001;
+            padding: 100px 3rem 3rem;
+            box-shadow: -5px 0 30px rgba(0,0,0,0.1);
+            transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .menu-panel.active {
+            right: 0;
+        }
+
+        .menu-panel ul {
+            list-style: none;
+        }
+
+        .menu-panel li {
+            margin-bottom: 1.5rem;
+        }
+
+        .menu-panel a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+            display: block;
+        }
+
+        .menu-panel a:hover {
+            color: var(--primary);
+        }
+
+        .menu-panel .menu-cta {
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+        }
+
+        .menu-panel .contact-btn-menu {
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: background 0.3s;
+            display: inline-block;
+        }
+
+        .menu-panel .contact-btn-menu:hover {
             background: var(--primary-dark);
+        }
+
+        /* Menu Overlay */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
 
         /* Hero Section */
@@ -636,22 +691,43 @@
             color: rgba(255,255,255,0.4);
         }
 
-        /* Mobile Menu */
+        /* Hamburger Menu Button */
         .mobile-menu {
-            display: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             background: none;
             border: none;
             cursor: pointer;
             padding: 0.5rem;
+            width: 40px;
+            height: 40px;
+            z-index: 1002;
         }
 
         .mobile-menu span {
             display: block;
-            width: 25px;
+            width: 24px;
             height: 2px;
             background: var(--dark);
-            margin: 5px 0;
-            transition: 0.3s;
+            margin: 3px 0;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform-origin: center;
+        }
+
+        /* Hamburger to X animation */
+        .mobile-menu.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .mobile-menu.active span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        .mobile-menu.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
         }
 
         /* Responsive */
@@ -700,14 +776,6 @@
         }
 
         @media (max-width: 768px) {
-            .nav-links, .contact-btn {
-                display: none;
-            }
-
-            .mobile-menu {
-                display: block;
-            }
-
             .hero-content {
                 bottom: 20%;
                 left: 5%;
@@ -774,6 +842,23 @@
             <span></span>
         </button>
     </nav>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay"></div>
+    
+    <!-- Slide-out Menu Panel -->
+    <div class="menu-panel">
+        <ul>
+            <li><a href="#about">關於羅鈺</a></li>
+            <li><a href="#projects">實績案例</a></li>
+            <li><a href="#services">服務項目</a></li>
+            <li><a href="#team">設計團隊</a></li>
+            <li><a href="#contact">聯絡我們</a></li>
+        </ul>
+        <div class="menu-cta">
+            <a href="#contact" class="contact-btn-menu">預約諮詢</a>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -1041,6 +1126,31 @@
     </footer>
 
     <script>
+        // Mobile Menu Toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const menuPanel = document.querySelector('.menu-panel');
+        const menuOverlay = document.querySelector('.menu-overlay');
+        const menuLinks = document.querySelectorAll('.menu-panel a');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('active');
+            menuPanel.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            document.body.style.overflow = menuPanel.classList.contains('active') ? 'hidden' : '';
+        }
+
+        mobileMenu.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', toggleMenu);
+        
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                menuPanel.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
         // Hero slider
         const slides = document.querySelectorAll('.hero-slide');
         let currentSlide = 0;
