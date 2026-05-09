@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>作品集 — 羅鈺室內設計 LOYU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --red: #B40014;
+  --dark: #1E1E1E;
+  --mid: #717071;
+  --light: #F7F6F4;
+  --border: #E0E0E0;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Noto Sans TC', sans-serif; color: var(--dark); overflow-x: hidden; }
+
+/* ── NAV — 三欄: 漢堡 | 分類選單(置中) | LOGO ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+  display: grid;
+  grid-template-columns: 80px 1fr 80px;
+  align-items: center;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  height: 64px; padding: 0 24px;
+}
+
+.hamburger {
+  background: none; border: none; cursor: pointer;
+  display: flex; flex-direction: column; gap: 6px; padding: 4px;
+  justify-self: start;
+}
+.hamburger span { display: block; width: 24px; height: 1.5px; background: var(--dark); }
+
+/* 分類 tab — 置中 */
+.nav-filters { display: flex; justify-content: center; gap: 0; }
+.filter-tab {
+  padding: 0 22px; font-size: 11px; letter-spacing: 3px;
+  text-transform: uppercase; cursor: pointer; color: var(--mid);
+  border-bottom: 2px solid transparent;
+  border-top: none; border-left: none; border-right: none;
+  background: none; font-family: inherit;
+  height: 64px; transition: color 0.3s, border-color 0.3s;
+}
+.filter-tab:hover { color: var(--dark); }
+.filter-tab.active { color: var(--red); border-bottom-color: var(--red); }
+
+.nav-logo { height: 22px; display: block; justify-self: end; }
+
+/* ── SIDEBAR ── */
+.overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.45);
+  z-index: 950; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+.overlay.open { opacity: 1; pointer-events: all; }
+.sidebar {
+  position: fixed; top: 0; left: 0; bottom: 0;
+  width: 33vw; min-width: 480px; max-width: 580px;
+  background: #fff; z-index: 960;
+  display: flex; flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform 0.42s cubic-bezier(0.4,0,0.2,1);
+}
+.sidebar.open { transform: translateX(0); }
+
+.sidebar-header {
+  display: flex; align-items: center; gap: 16px;
+  padding: 18px 24px 18px 18px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.sidebar-close {
+  background: none; border: none; font-size: 20px;
+  cursor: pointer; color: var(--mid); line-height: 1; flex-shrink: 0;
+}
+.sidebar-brand { flex: 1; font-size: 17px; font-weight: 700; text-decoration: none; color: var(--dark); }
+.sidebar-lang {
+  font-size: 12px; letter-spacing: 2px; color: var(--mid);
+  cursor: pointer; flex-shrink: 0;
+}
+.sidebar-body { display: flex; flex: 1; overflow: hidden; }
+.sidebar-nav {
+  width: 38%; padding: 32px 20px 40px 40px;
+  border-right: 1px solid var(--border); overflow-y: auto;
+}
+.menu-group { margin-bottom: 22px; }
+.menu-group-title {
+  font-size: 14px; font-weight: 700;
+  padding: 5px 0; cursor: pointer; letter-spacing: 0.5px;
+  color: var(--dark);
+  text-decoration: none;
+  display: block;
+}
+.menu-group-title:hover { color: var(--red); }
+.menu-sub { padding-left: 14px; margin-top: 6px; }
+.menu-sub a {
+  display: block; font-size: 13px; color: var(--mid);
+  padding: 4px 0; text-decoration: none; transition: color 0.3s;
+}
+.menu-sub a:hover { color: var(--red); }
+.sidebar-contact { width: 62%; padding: 32px 36px 40px 32px; overflow-y: auto; }
+.sidebar-contact h3 {
+  font-size: 14px; font-weight: 700; letter-spacing: 0.5px;
+  color: var(--dark); margin-bottom: 16px;
+}
+.sidebar-contact .info { font-size: 13px; line-height: 2; color: #555; margin-bottom: 28px; }
+.sidebar-contact .info a { color: var(--red); text-decoration: none; }
+.sidebar-contact h4 {
+  font-size: 14px; font-weight: 700; letter-spacing: 0.5px;
+  color: var(--dark); margin-bottom: 14px;
+}
+.contact-tabs {
+  display: flex; gap: 0; margin-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.contact-tab {
+  padding: 6px 16px 8px 0; font-size: 12px; font-weight: 500;
+  cursor: pointer; color: var(--mid);
+  border-bottom: 2px solid transparent; margin-bottom: -1px;
+  background: none; border-top: none; border-left: none; border-right: none;
+  font-family: inherit; transition: color 0.3s, border-color 0.3s;
+}
+.contact-tab.active { color: var(--red); border-bottom-color: var(--red); }
+.contact-info { display: none; }
+.contact-info.active { display: block; }
+.form-select, .form-input {
+  width: 100%; border: none; border-bottom: 1px solid #ccc;
+  padding: 9px 0; font-size: 13px; margin-bottom: 14px;
+  outline: none; background: none; font-family: inherit; color: var(--dark);
+}
+.form-submit {
+  margin-top: 8px; padding: 11px 28px; background: var(--red);
+  color: #fff; border: none; font-size: 12px; letter-spacing: 2px;
+  cursor: pointer; font-family: inherit;
+}
+
+/* ── PORTFOLIO GRID — 滿版，16px 縫，4欄 ── */
+.portfolio-grid {
+  margin-top: 64px; /* nav height */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  background: #F7F6F4; /* gap color */
+}
+
+/* 一般縮圖 */
+.portfolio-item {
+  position: relative; overflow: hidden; cursor: pointer;
+  aspect-ratio: 4/3; background: #ccc;
+  transition: opacity 0.3s;
+}
+.portfolio-item.hidden { display: none; }
+.portfolio-item img {
+  width: 100%; height: 100%; object-fit: cover;
+  display: block; transition: transform 0.7s ease;
+}
+.portfolio-item:hover img { transform: scale(1.04); }
+
+.portfolio-caption {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0);
+  display: flex; flex-direction: column;
+  justify-content: flex-end; padding: 20px;
+  transition: background 0.3s;
+}
+.portfolio-item:hover .portfolio-caption,
+.portfolio-item.active .portfolio-caption { background: rgba(0,0,0,0.5); }
+.portfolio-text { opacity: 0; transform: translateY(6px); transition: opacity 0.3s, transform 0.3s; color: #fff; }
+.portfolio-item:hover .portfolio-text,
+.portfolio-item.active .portfolio-text { opacity: 1; transform: translateY(0); }
+.p-name { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
+.p-meta { font-size: 11px; color: rgba(255,255,255,0.75); letter-spacing: 1px; }
+
+/* 佔位灰框 */
+.portfolio-placeholder {
+  background: #EAEAEA; aspect-ratio: 4/3;
+  display: flex; align-items: center; justify-content: center;
+}
+.portfolio-placeholder.hidden { display: none; }
+.portfolio-placeholder span { font-size: 11px; color: #C0C0C0; letter-spacing: 2px; }
+
+/* ── EXPAND PANEL — inline，插入被點擊那排下方 ── */
+.expand-panel-inline {
+  grid-column: 1 / -1;
+  border-top: 2px solid var(--red);
+  display: grid;
+  grid-template-columns: 62% 38%;
+  height: 72vh;
+  background: #fff;
+}
+
+.ep-photo-area {
+  position: relative; overflow: hidden; background: #111;
+}
+.ep-photo-area img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.ep-photo-nav {
+  position: absolute; bottom: 24px; right: 24px;
+  display: flex; gap: 8px;
+}
+.ep-btn {
+  width: 40px; height: 40px; background: rgba(255,255,255,0.85);
+  border: none; cursor: pointer; font-size: 18px;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.ep-btn:hover { background: #fff; }
+
+.ep-info {
+  padding: 52px 48px; display: flex; flex-direction: column;
+  overflow-y: auto; position: relative;
+}
+.ep-close-btn {
+  position: absolute; top: 20px; right: 24px;
+  background: none; border: none; font-size: 20px;
+  cursor: pointer; color: var(--mid); line-height: 1;
+}
+.ep-close-btn:hover { color: var(--dark); }
+
+.ep-info h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px; font-weight: 300; margin-bottom: 28px; line-height: 1.3;
+}
+.ep-row { margin-bottom: 18px; }
+.ep-label {
+  font-size: 9px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--mid); margin-bottom: 5px;
+}
+.ep-val { font-size: 14px; color: var(--dark); }
+.ep-divider { height: 1px; background: var(--border); margin: 28px 0; }
+.ep-consult {
+  display: inline-block; padding: 13px 32px; background: var(--red);
+  color: #fff; border: none; font-size: 11px; letter-spacing: 3px;
+  cursor: pointer; font-family: inherit; margin-top: auto;
+  text-transform: uppercase; width: fit-content;
+}
+.ep-consult:hover { background: #91000A; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <button class="hamburger" id="menuBtn">
+    <span></span><span></span><span></span>
+  </button>
+
+  <!-- 分類選單置中 -->
+  <div class="nav-filters">
+    <button class="filter-tab active" data-filter="all">全部</button>
+    <button class="filter-tab" data-filter="commercial">商辦空間</button>
+    <button class="filter-tab" data-filter="residential">住宅空間</button>
+    <button class="filter-tab" data-filter="others">其他空間</button>
+  </div>
+
+  <a href="index.html"><img src="羅鈺網站/LOYU/LOGO/logo-PNG_去背.png" alt="羅鈺室內設計" class="nav-logo"></a>
+</nav>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <button class="sidebar-close" id="closeBtn">✕</button>
+    <a href="index.html" class="sidebar-brand">羅鈺室內設計</a>
+    <span class="sidebar-lang">EN</span>
+  </div>
+  <div class="sidebar-body">
+    <div class="sidebar-nav">
+      <div class="menu-group">
+        <a href="portfolio.html" class="menu-group-title">作品集</a>
+        <div class="menu-sub">
+          <a href="portfolio.html#commercial">商辦空間</a>
+          <a href="portfolio.html#residential">住宅空間</a>
+          <a href="portfolio.html#others">其他空間</a>
+        </div>
+      </div>
+      <div class="menu-group">
+        <a href="about.html" class="menu-group-title">關於我們</a>
+        <div class="menu-sub">
+          <a href="team.html">設計團隊</a>
+          <a href="about.html#awards">獲獎記錄</a>
+          <a href="about.html#clients">夥伴與客戶</a>
+        </div>
+      </div>
+      <div class="menu-group">
+        <a href="careers.html" class="menu-group-title">加入我們</a>
+        <div class="menu-sub">
+          <a href="careers.html">工作機會</a>
+          <a href="#">公司環境</a>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-contact">
+      <h3>聯絡</h3>
+      <div class="contact-tabs">
+        <button class="contact-tab active" data-city="taichung">台中</button>
+        <button class="contact-tab" data-city="kaohsiung">高雄</button>
+      </div>
+      <div class="contact-info active" id="contact-taichung">
+        <div class="info">
+          台中市北屯區崇德路128號15樓之3<br>
+          <a href="mailto:loyudesign@loyu.com.tw">loyudesign@loyu.com.tw</a><br>
+          T 04-22366606<br>
+          F 04-22366612
+        </div>
+      </div>
+      <div class="contact-info" id="contact-kaohsiung">
+        <div class="info">
+          高雄市三民區建工路111號3樓之1<br>
+          <a href="mailto:loyu.kao@msa.hinet.net">loyu.kao@msa.hinet.net</a><br>
+          T 07-3722995<br>
+          F 07-3732093
+        </div>
+      </div>
+
+      <h4>專案諮詢</h4>
+      <select class="form-select">
+        <option>專案類型</option>
+        <option>辦公/廠方設計規劃</option>
+        <option>住家設計規劃</option>
+        <option>舊屋設計規劃</option>
+        <option>外觀拉皮設計規劃</option>
+        <option>其他空間設計規劃</option>
+        <option>工程估價</option>
+        <option>維修服務</option>
+      </select>
+      <input class="form-input" placeholder="公司名稱">
+      <input class="form-input" placeholder="聯絡人">
+      <input class="form-input" placeholder="連絡電話">
+      <input class="form-input" placeholder="電子郵件">
+      <input class="form-input" placeholder="聯絡地址">
+      <button class="form-submit">送出</button>
+    </div>
+  </div><!-- /.sidebar-body -->
+</aside>
+
+<!-- PORTFOLIO GRID -->
+<div class="portfolio-grid" id="portfolioGrid">
+
+  <!-- ── 暖色群：由明至暗 ── -->
+  <div class="portfolio-item" data-cat="others"
+    data-name="永記造漆－彩虹文史館文物館" data-loc="高雄市" data-type="其他空間"
+    data-img="羅鈺網站/LOYU/作品集/03_其他空間/永記造漆－彩虹文史館_文物館/projects_image_2018-05-09_loyu_10880afdcaf0148535329a3297c9987f.jpg">
+    <img src="羅鈺網站/LOYU/作品集/03_其他空間/永記造漆－彩虹文史館_文物館/projects_image_2018-05-09_loyu_10880afdcaf0148535329a3297c9987f.jpg" alt="永記造漆－彩虹文史館文物館" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">永記造漆－彩虹文史館文物館</div><div class="p-meta">高雄市 · 其他空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="residential"
+    data-name="江宅" data-loc="台灣" data-type="住宅空間"
+    data-img="羅鈺網站/LOYU/作品集/02_住宅空間/江宅/projects_image_2018-05-08_loyu_30bbd5f735107ca4c7b9d204061ee7a7.jpg">
+    <img src="羅鈺網站/LOYU/作品集/02_住宅空間/江宅/projects_image_2018-05-08_loyu_30bbd5f735107ca4c7b9d204061ee7a7.jpg" alt="江宅" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">江宅</div><div class="p-meta">台灣 · 住宅空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="大江生醫" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/大江生醫/projects_image_2019-01-08_loyu_d514cf26acf4c8f2fa428eb31d2d3be0.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/大江生醫/projects_image_2019-01-08_loyu_d514cf26acf4c8f2fa428eb31d2d3be0.jpg" alt="大江生醫" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">大江生醫</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="羅力衛浴" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/羅力衛浴/projects_image_2021-07-05_loyu_19364aae66b7d021bcfae94def6483a6.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/羅力衛浴/projects_image_2021-07-05_loyu_19364aae66b7d021bcfae94def6483a6.jpg" alt="羅力衛浴" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">羅力衛浴</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="台灣百和" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/台灣百和/projects_image_2019-01-10_loyu_18a641b8309840bd44deb80037519ec6.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/台灣百和/projects_image_2019-01-10_loyu_18a641b8309840bd44deb80037519ec6.jpg" alt="台灣百和" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">台灣百和</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="others"
+    data-name="極鮮火鍋－岡山館" data-loc="高雄市" data-type="其他空間"
+    data-img="羅鈺網站/LOYU/作品集/03_其他空間/極鮮火鍋 - 岡山館/projects_image_2021-07-08_loyu_0bba771ec779b904438fd41b0cd987d6.jpg">
+    <img src="羅鈺網站/LOYU/作品集/03_其他空間/極鮮火鍋 - 岡山館/projects_image_2021-07-08_loyu_0bba771ec779b904438fd41b0cd987d6.jpg" alt="極鮮火鍋－岡山館" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">極鮮火鍋－岡山館</div><div class="p-meta">高雄市 · 其他空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="residential"
+    data-name="接待會館" data-loc="台中市" data-type="住宅空間"
+    data-img="羅鈺網站/LOYU/作品集/02_住宅空間/接待會館/projects_image_2020-08-07_loyu_09bb92f0c3179ca8af1efa33707345d9.jpg">
+    <img src="羅鈺網站/LOYU/作品集/02_住宅空間/接待會館/projects_image_2020-08-07_loyu_09bb92f0c3179ca8af1efa33707345d9.jpg" alt="接待會館" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">接待會館</div><div class="p-meta">台中市 · 住宅空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="台中精機" data-loc="台中市" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/台中精機/projects_image_2021-07-05_loyu_1ecdc6defff79f1fd97381a982ed711b.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/台中精機/projects_image_2021-07-05_loyu_1ecdc6defff79f1fd97381a982ed711b.jpg" alt="台中精機" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">台中精機</div><div class="p-meta">台中市 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="residential"
+    data-name="許公館" data-loc="台灣" data-type="住宅空間"
+    data-img="羅鈺網站/LOYU/作品集/02_住宅空間/許公館/projects_image_2019-01-11_loyu_0d322a2695e1dd9fddea20ea953fce27.jpg">
+    <img src="羅鈺網站/LOYU/作品集/02_住宅空間/許公館/projects_image_2019-01-11_loyu_0d322a2695e1dd9fddea20ea953fce27.jpg" alt="許公館" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">許公館</div><div class="p-meta">台灣 · 住宅空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="鍵瑋企業" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/鍵瑋企業/projects_image_2019-01-11_loyu_6883da275e5401cc0154ee570e622ebf.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/鍵瑋企業/projects_image_2019-01-11_loyu_6883da275e5401cc0154ee570e622ebf.jpg" alt="鍵瑋企業" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">鍵瑋企業</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="宏全國際" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/宏全國際/projects_image_2019-01-10_loyu_1ab7c86e6be48708eb90ade07beb8f82.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/宏全國際/projects_image_2019-01-10_loyu_1ab7c86e6be48708eb90ade07beb8f82.jpg" alt="宏全國際" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">宏全國際</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="日益電機" data-loc="台中市" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/日益電機/projects_image_2020-08-07_loyu_0100834109ee86ac6fa178ea1169c04b.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/日益電機/projects_image_2020-08-07_loyu_0100834109ee86ac6fa178ea1169c04b.jpg" alt="日益電機" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">日益電機</div><div class="p-meta">台中市 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="彰茂企業" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/彰茂企業/projects_image_2019-01-11_loyu_0021d383b11778417262de004645c4a2.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/彰茂企業/projects_image_2019-01-11_loyu_0021d383b11778417262de004645c4a2.jpg" alt="彰茂企業" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">彰茂企業</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="朝嘉興業" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/朝嘉興業/projects_image_2020-08-11_loyu_03820f8305b335267b95e7ec1cb5c778.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/朝嘉興業/projects_image_2020-08-11_loyu_03820f8305b335267b95e7ec1cb5c778.jpg" alt="朝嘉興業" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">朝嘉興業</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="宏全國際員工宿舍" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/宏全國際 員工宿舍/projects_image_2024-11-27_loyu_0a158d064d28cd2fd8d330204ce5f538.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/宏全國際 員工宿舍/projects_image_2024-11-27_loyu_0a158d064d28cd2fd8d330204ce5f538.jpg" alt="宏全國際員工宿舍" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">宏全國際員工宿舍</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="金可眼鏡" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/金可眼鏡/projects_image_2019-01-11_loyu_0c5ef9605d784f2ee7e38e6b794d8638.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/金可眼鏡/projects_image_2019-01-11_loyu_0c5ef9605d784f2ee7e38e6b794d8638.jpg" alt="金可眼鏡" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">金可眼鏡</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="others"
+    data-name="六家國小－上銀卓永統紀念圖書館" data-loc="新竹縣" data-type="其他空間"
+    data-img="羅鈺網站/LOYU/作品集/03_其他空間/六家國小 - 上銀卓永統紀念圖書館/projects_image_2019-01-11_loyu_0a55a5cd63af0cf1474c9bf18f0d353d.jpg">
+    <img src="羅鈺網站/LOYU/作品集/03_其他空間/六家國小 - 上銀卓永統紀念圖書館/projects_image_2019-01-11_loyu_0a55a5cd63af0cf1474c9bf18f0d353d.jpg" alt="六家國小－上銀卓永統紀念圖書館" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">六家國小－上銀卓永統紀念圖書館</div><div class="p-meta">新竹縣 · 其他空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="儷寶化妝品" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/儷寶化妝品/projects_image_2019-01-11_loyu_02cef7849ef71155da12201e50bc123a.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/儷寶化妝品/projects_image_2019-01-11_loyu_02cef7849ef71155da12201e50bc123a.jpg" alt="儷寶化妝品" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">儷寶化妝品</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="宏恩塑膠" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/宏恩塑膠/projects_image_2021-07-05_loyu_1421799a8d900a0172f4dfaa9d62bf4a.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/宏恩塑膠/projects_image_2021-07-05_loyu_1421799a8d900a0172f4dfaa9d62bf4a.jpg" alt="宏恩塑膠" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">宏恩塑膠</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="residential"
+    data-name="田公館" data-loc="台灣" data-type="住宅空間"
+    data-img="羅鈺網站/LOYU/作品集/02_住宅空間/田公館/projects_image_2021-07-05_loyu_187936017b3f47115be24631732ec4eb.jpg">
+    <img src="羅鈺網站/LOYU/作品集/02_住宅空間/田公館/projects_image_2021-07-05_loyu_187936017b3f47115be24631732ec4eb.jpg" alt="田公館" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">田公館</div><div class="p-meta">台灣 · 住宅空間</div></div></div>
+  </div>
+
+  <!-- ── 冷色群：由明至暗 ── -->
+  <div class="portfolio-item" data-cat="residential"
+    data-name="羅公館" data-loc="彰化縣" data-type="住宅空間"
+    data-img="羅鈺網站/LOYU/作品集/02_住宅空間/羅公館/projects_image_2018-05-09_loyu_0c300b14b50ab4fcd3848cbd8205c76a.jpg">
+    <img src="羅鈺網站/LOYU/作品集/02_住宅空間/羅公館/projects_image_2018-05-09_loyu_0c300b14b50ab4fcd3848cbd8205c76a.jpg" alt="羅公館" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">羅公館</div><div class="p-meta">彰化縣 · 住宅空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="東台精機" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/東台精機/projects_image_2019-01-10_loyu_449835b1579c1106b107afaa90814384.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/東台精機/projects_image_2019-01-10_loyu_449835b1579c1106b107afaa90814384.jpg" alt="東台精機" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">東台精機</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="健和興端子" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/健和興端子/projects_image_2021-08-09_loyu_0447ec824348cb934db7cca0422b9c73.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/健和興端子/projects_image_2021-08-09_loyu_0447ec824348cb934db7cca0422b9c73.jpg" alt="健和興端子" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">健和興端子</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="來永實業" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/來永實業/projects_image_2019-01-10_loyu_4de4114c192de2cced05df57554db8a8.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/來永實業/projects_image_2019-01-10_loyu_4de4114c192de2cced05df57554db8a8.jpg" alt="來永實業" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">來永實業</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="others"
+    data-name="永記造漆－彩虹文史館展覽館" data-loc="高雄市" data-type="其他空間"
+    data-img="羅鈺網站/LOYU/作品集/03_其他空間/永記造漆－彩虹文史館_展覽館/projects_image_2018-05-09_loyu_013a3d5c05916c05792ca2cc15280fca.jpg">
+    <img src="羅鈺網站/LOYU/作品集/03_其他空間/永記造漆－彩虹文史館_展覽館/projects_image_2018-05-09_loyu_013a3d5c05916c05792ca2cc15280fca.jpg" alt="永記造漆－彩虹文史館展覽館" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">永記造漆－彩虹文史館展覽館</div><div class="p-meta">高雄市 · 其他空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="others"
+    data-name="燒肉神保町－岡山館" data-loc="高雄市" data-type="其他空間"
+    data-img="羅鈺網站/LOYU/作品集/03_其他空間/燒肉神保町 - 岡山館/projects_image_2021-07-08_loyu_1506886f41b8a845938f48caecb53b94.jpg">
+    <img src="羅鈺網站/LOYU/作品集/03_其他空間/燒肉神保町 - 岡山館/projects_image_2021-07-08_loyu_1506886f41b8a845938f48caecb53b94.jpg" alt="燒肉神保町－岡山館" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">燒肉神保町－岡山館</div><div class="p-meta">高雄市 · 其他空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="聯合骨科器材" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/聯合骨科器材/projects_image_2018-05-09_loyu_19a5f1a9fd161a0875a73cc1149da917.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/聯合骨科器材/projects_image_2018-05-09_loyu_19a5f1a9fd161a0875a73cc1149da917.jpg" alt="聯合骨科器材" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">聯合骨科器材</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="油順精密" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/油順精密/projects_image_2019-01-10_loyu_1cc6f68ab23bd32b6d60f33ba847e894.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/油順精密/projects_image_2019-01-10_loyu_1cc6f68ab23bd32b6d60f33ba847e894.jpg" alt="油順精密" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">油順精密</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="雷尼紹" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/雷尼紹/projects_image_2019-01-11_loyu_0d47bbab5faf3c3f1ad6b655234675b6.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/雷尼紹/projects_image_2019-01-11_loyu_0d47bbab5faf3c3f1ad6b655234675b6.jpg" alt="雷尼紹" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">雷尼紹</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="宏諦實業" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/宏諦實業/projects_image_2018-05-09_loyu_020d802d3bf74b440b7cf76e07ddac7b.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/宏諦實業/projects_image_2018-05-09_loyu_020d802d3bf74b440b7cf76e07ddac7b.jpg" alt="宏諦實業" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">宏諦實業</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="普家康興業" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/普家康興業/projects_image_2018-05-09_loyu_19e1cadf3de9328d7769e3430f3f5583.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/普家康興業/projects_image_2018-05-09_loyu_19e1cadf3de9328d7769e3430f3f5583.jpg" alt="普家康興業" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">普家康興業</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="品茂塑膠" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/品茂塑膠/projects_image_2024-11-29_loyu_0480d3cac9095699a52e894d696d0e19.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/品茂塑膠/projects_image_2024-11-29_loyu_0480d3cac9095699a52e894d696d0e19.jpg" alt="品茂塑膠" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">品茂塑膠</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="克瑞電子" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/克瑞電子/projects_image_2019-01-10_loyu_02c805132cb37d6f6a4d626f2cca7f05.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/克瑞電子/projects_image_2019-01-10_loyu_02c805132cb37d6f6a4d626f2cca7f05.jpg" alt="克瑞電子" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">克瑞電子</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="橋椿金屬" data-loc="台中市" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/橋椿金屬/projects_image_2018-05-09_loyu_0122a9252bc3da4a1b229cb20d7a7423.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/橋椿金屬/projects_image_2018-05-09_loyu_0122a9252bc3da4a1b229cb20d7a7423.jpg" alt="橋椿金屬" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">橋椿金屬</div><div class="p-meta">台中市 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="正瀚生技" data-loc="南投縣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/正瀚生技/projects_image_2022-05-25_loyu_18dfc0d006ca2ff49fd4f3114620bb57.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/正瀚生技/projects_image_2022-05-25_loyu_18dfc0d006ca2ff49fd4f3114620bb57.jpg" alt="正瀚生技" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">正瀚生技</div><div class="p-meta">南投縣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="residential"
+    data-name="張公館" data-loc="台灣" data-type="住宅空間"
+    data-img="羅鈺網站/LOYU/作品集/02_住宅空間/張公館/projects_image_2021-07-05_loyu_0dd60896b1bba9b9adf86f1bc906cd19.jpg">
+    <img src="羅鈺網站/LOYU/作品集/02_住宅空間/張公館/projects_image_2021-07-05_loyu_0dd60896b1bba9b9adf86f1bc906cd19.jpg" alt="張公館" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">張公館</div><div class="p-meta">台灣 · 住宅空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="野寶科技" data-loc="台中市" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/野寶科技/projects_image_2018-05-09_loyu_1e55adbd5e58fe932cf9edb8f2059244.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/野寶科技/projects_image_2018-05-09_loyu_1e55adbd5e58fe932cf9edb8f2059244.jpg" alt="野寶科技" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">野寶科技</div><div class="p-meta">台中市 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="糖村" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/糖村/projects_image_2020-08-11_loyu_164c06f33eb6e0cc7005ca018daf441d.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/糖村/projects_image_2020-08-11_loyu_164c06f33eb6e0cc7005ca018daf441d.jpg" alt="糖村" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">糖村</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="松之門控" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/松之門控/projects_image_2022-05-25_loyu_0779c7de3d78d0df2008dc98b257c75d.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/松之門控/projects_image_2022-05-25_loyu_0779c7de3d78d0df2008dc98b257c75d.jpg" alt="松之門控" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">松之門控</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="代宇電子" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/代宇電子/projects_image_2018-12-27_loyu_2ea6962595b4711e79a2d7653ab299e5.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/代宇電子/projects_image_2018-12-27_loyu_2ea6962595b4711e79a2d7653ab299e5.jpg" alt="代宇電子" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">代宇電子</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="residential"
+    data-name="林公館" data-loc="台灣" data-type="住宅空間"
+    data-img="羅鈺網站/LOYU/作品集/02_住宅空間/林公館/projects_image_2021-07-05_loyu_0fca47e41d0fde615cb6d4ebc23e5733.jpg">
+    <img src="羅鈺網站/LOYU/作品集/02_住宅空間/林公館/projects_image_2021-07-05_loyu_0fca47e41d0fde615cb6d4ebc23e5733.jpg" alt="林公館" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">林公館</div><div class="p-meta">台灣 · 住宅空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="皇家NTC商務中心" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/皇家NTC商務中心 (設計規劃)/projects_image_2019-01-15_loyu_135a1c971fe97da24b8d4d25224a666f.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/皇家NTC商務中心 (設計規劃)/projects_image_2019-01-15_loyu_135a1c971fe97da24b8d4d25224a666f.jpg" alt="皇家NTC商務中心" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">皇家NTC商務中心</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="金器工業" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/金器工業/projects_image_2020-08-07_loyu_06a97591bf674b8ab62cd57c078a4153.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/金器工業/projects_image_2020-08-07_loyu_06a97591bf674b8ab62cd57c078a4153.jpg" alt="金器工業" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">金器工業</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+  <div class="portfolio-item" data-cat="commercial"
+    data-name="鼎霖國際" data-loc="台灣" data-type="商辦空間"
+    data-img="羅鈺網站/LOYU/作品集/01_辦公空間/鼎霖國際/projects_image_2022-05-25_loyu_001aecac6364ac0311aa2256b0f40f73.jpg">
+    <img src="羅鈺網站/LOYU/作品集/01_辦公空間/鼎霖國際/projects_image_2022-05-25_loyu_001aecac6364ac0311aa2256b0f40f73.jpg" alt="鼎霖國際" loading="lazy">
+    <div class="portfolio-caption"><div class="portfolio-text"><div class="p-name">鼎霖國際</div><div class="p-meta">台灣 · 商辦空間</div></div></div>
+  </div>
+
+</div><!-- /.portfolio-grid -->
+
+<script>
+// ── Sidebar ──
+const menuBtn = document.getElementById('menuBtn');
+const closeBtn = document.getElementById('closeBtn');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+function openMenu() { sidebar.classList.add('open'); overlay.classList.add('open'); document.body.style.overflow='hidden'; }
+function closeMenu() { sidebar.classList.remove('open'); overlay.classList.remove('open'); document.body.style.overflow=''; }
+menuBtn.addEventListener('click', openMenu);
+closeBtn.addEventListener('click', closeMenu);
+overlay.addEventListener('click', closeMenu);
+
+// ── Filter tabs ──
+const tabs = document.querySelectorAll('.filter-tab');
+const allItems = document.querySelectorAll('.portfolio-item, .portfolio-placeholder');
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const filter = tab.dataset.filter;
+    closePanel();
+    allItems.forEach(item => {
+      const cat = item.dataset.cat;
+      if (filter === 'all' || cat === filter || cat === 'all') {
+        item.classList.remove('hidden');
+      } else {
+        item.classList.add('hidden');
+      }
+    });
+  });
+});
+
+// Apply filter from URL hash on load
+(function() {
+  const hash = window.location.hash.replace('#', '');
+  if (['commercial', 'residential', 'others'].includes(hash)) {
+    const matchTab = document.querySelector('.filter-tab[data-filter="' + hash + '"]');
+    if (matchTab) matchTab.click();
+  }
+})();
+
+// ── Expand panel — 插入被點擊那排下方 ──
+function closePanel() {
+  const existing = document.getElementById('expandPanel');
+  if (existing) existing.remove();
+  document.querySelectorAll('.portfolio-item.active').forEach(i => i.classList.remove('active'));
+}
+
+function getLastItemInSameRow(clickedItem) {
+  const clickedTop = Math.round(clickedItem.getBoundingClientRect().top);
+  const visibleItems = [...document.querySelectorAll('.portfolio-item:not(.hidden), .portfolio-placeholder:not(.hidden)')];
+  const sameRowItems = visibleItems.filter(el => Math.abs(Math.round(el.getBoundingClientRect().top) - clickedTop) < 5);
+  return sameRowItems[sameRowItems.length - 1];
+}
+
+document.querySelectorAll('.portfolio-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const wasActive = item.classList.contains('active');
+    closePanel();
+    if (wasActive) return;
+
+    item.classList.add('active');
+
+    const lastInRow = getLastItemInSameRow(item);
+
+    const expandEl = document.createElement('div');
+    expandEl.id = 'expandPanel';
+    expandEl.className = 'expand-panel-inline';
+    expandEl.innerHTML = `
+      <div class="ep-photo-area">
+        <img src="${item.dataset.img}" alt="${item.dataset.name}">
+        <div class="ep-photo-nav">
+          <button class="ep-btn ep-prev">‹</button>
+          <button class="ep-btn ep-next">›</button>
+        </div>
+      </div>
+      <div class="ep-info">
+        <button class="ep-close-btn">✕</button>
+        <h2>${item.dataset.name}</h2>
+        <div class="ep-row"><div class="ep-label">地點</div><div class="ep-val">${item.dataset.loc}</div></div>
+        <div class="ep-row"><div class="ep-label">類型</div><div class="ep-val">${item.dataset.type}</div></div>
+        <div class="ep-row"><div class="ep-label">風格</div><div class="ep-val">現代 · 沉穩</div></div>
+        <div class="ep-divider"></div>
+        <button class="ep-consult" onclick="openMenu()">預約諮詢</button>
+      </div>
+    `;
+    lastInRow.insertAdjacentElement('afterend', expandEl);
+    expandEl.querySelector('.ep-close-btn').addEventListener('click', closePanel);
+
+    // 捲動：被點擊那排頂部對齊 nav 下緣
+    setTimeout(() => {
+      const navH = document.querySelector('nav').offsetHeight;
+      const rowTop = item.getBoundingClientRect().top + window.scrollY - navH;
+      window.scrollTo({ top: rowTop, behavior: 'smooth' });
+    }, 50);
+  });
+});
+
+// ESC to close
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closePanel(); closeMenu(); }
+});
+
+// 台中/高雄 tab 切換
+document.querySelectorAll('.contact-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.contact-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.contact-info').forEach(i => i.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('contact-' + tab.dataset.city).classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

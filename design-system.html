@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LOYU Design System — 視覺設計規範</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red:        #B40014;
+      --dark-red:   #91000A;
+      --dark:       #1E1E1E;
+      --mid:        #717071;
+      --light:      #F7F6F4;
+      --light-gray: #D2D2D2;
+      --border:     #D2D2D2;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Noto Sans TC', sans-serif; color: var(--dark); background: #f0eeeb; }
+    .page-wrap { max-width: 1100px; margin: 0 auto; padding: 48px 40px 80px; }
+
+    .ds-section {
+      background: #fff;
+      border-radius: 2px;
+      padding: 48px;
+      margin-bottom: 24px;
+    }
+
+    .ds-section-title {
+      font: 500 10px/1 'Inter', sans-serif;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--mid);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 14px;
+      margin-bottom: 40px;
+    }
+
+    .ds-row {
+      display: flex;
+      gap: 32px;
+      align-items: baseline;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .ds-label {
+      font: 400 11px/1.4 'Inter', sans-serif;
+      color: var(--mid);
+      letter-spacing: 0.05em;
+      min-width: 160px;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .ds-note {
+      font: 400 11px/1.6 'Inter', sans-serif;
+      color: #999;
+      margin-top: 8px;
+    }
+
+    /* Colors */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 16px;
+    }
+
+    .color-block {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 2px;
+      margin-bottom: 10px;
+    }
+
+    .color-hex {
+      font: 600 12px/1 'Inter', sans-serif;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+
+    .color-name {
+      font: 400 11px/1.5 'Noto Sans TC', sans-serif;
+      color: var(--mid);
+    }
+
+    /* Spacing */
+    .spacing-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 16px;
+    }
+
+    .spacing-bar {
+      background: var(--red);
+      height: 8px;
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
+    .spacing-value {
+      font: 600 12px/1 'Inter', sans-serif;
+      color: var(--dark);
+      min-width: 40px;
+    }
+
+    .spacing-use {
+      font: 400 12px/1 'Noto Sans TC', sans-serif;
+      color: var(--mid);
+    }
+
+    /* Buttons */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      background: var(--red);
+      color: #fff;
+      font: 500 11px/1 'Inter', sans-serif;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn-primary:hover {
+      background: var(--dark-red);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border: 1px solid var(--red);
+      color: var(--red);
+      font: 500 11px/1 'Inter', sans-serif;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: none;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-secondary:hover {
+      background: var(--red);
+      color: #fff;
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border: 1px solid rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.85);
+      font: 500 11px/1 'Inter', sans-serif;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: none;
+      text-decoration: none;
+      cursor: pointer;
+      transition: border-color 0.3s, color 0.3s;
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(255,255,255,0.7);
+      color: #fff;
+    }
+
+    /* Transitions table */
+    .transitions-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .transitions-table th {
+      font: 500 10px/1 'Inter', sans-serif;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mid);
+      text-align: left;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .transitions-table td {
+      font: 400 12px/1.6 'Inter', sans-serif;
+      color: var(--dark);
+      padding: 14px 16px;
+      border-bottom: 1px solid #f0eeeb;
+      vertical-align: top;
+    }
+
+    .transitions-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .transitions-table td:nth-child(2) {
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      color: var(--red);
+      white-space: nowrap;
+    }
+
+    .transitions-table td:nth-child(3) {
+      color: var(--mid);
+      font-size: 11px;
+    }
+
+    /* Section pattern demo */
+    .pattern-code {
+      background: #f8f7f5;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 24px;
+      font: 400 12px/1.8 'Courier New', monospace;
+      color: var(--mid);
+      white-space: pre;
+    }
+
+    /* Font family labels */
+    .font-family-list {
+      margin-bottom: 40px;
+    }
+
+    .font-family-item {
+      display: flex;
+      align-items: baseline;
+      gap: 24px;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0eeeb;
+    }
+
+    .font-family-item:last-child {
+      border-bottom: none;
+    }
+
+    .font-family-name {
+      font: 500 12px/1 'Inter', sans-serif;
+      color: var(--dark);
+      min-width: 200px;
+    }
+
+    .font-family-use {
+      font: 400 11px/1 'Noto Sans TC', sans-serif;
+      color: var(--mid);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Page Header -->
+  <div style="padding: 48px 40px 32px; max-width: 1100px; margin: 0 auto;">
+    <p style="font: 500 10px/1 'Inter', sans-serif; letter-spacing: 0.14em; text-transform: uppercase; color: #999; margin-bottom: 10px;">LOYU Interior Design</p>
+    <h1 style="font: 300 40px/1.2 'Cormorant Garamond', serif; color: var(--dark); margin-bottom: 6px;">Design System</h1>
+    <p style="font: 400 13px/1 'Noto Sans TC', sans-serif; color: var(--mid);">視覺設計規範 — 2026</p>
+  </div>
+
+  <div class="page-wrap">
+
+    <!-- Section 2: Colors -->
+    <div class="ds-section">
+      <div class="ds-section-title">COLORS 色彩系統</div>
+      <div class="color-grid">
+
+        <div class="color-swatch">
+          <div class="color-block" style="background: #B40014;"></div>
+          <div class="color-hex">#B40014</div>
+          <div class="color-name">LOYU Red<br>主色：CTA、強調、eyebrow</div>
+        </div>
+
+        <div class="color-swatch">
+          <div class="color-block" style="background: #91000A;"></div>
+          <div class="color-hex">#91000A</div>
+          <div class="color-name">Dark Red<br>Hover 加深版</div>
+        </div>
+
+        <div class="color-swatch">
+          <div class="color-block" style="background: #1E1E1E;"></div>
+          <div class="color-hex">#1E1E1E</div>
+          <div class="color-name">Dark<br>主要文字、深色背景</div>
+        </div>
+
+        <div class="color-swatch">
+          <div class="color-block" style="background: #717071;"></div>
+          <div class="color-hex">#717071</div>
+          <div class="color-name">Gray<br>次要文字、標籤</div>
+        </div>
+
+        <div class="color-swatch">
+          <div class="color-block" style="background: #D2D2D2; border: 1px solid #eee;"></div>
+          <div class="color-hex">#D2D2D2</div>
+          <div class="color-name">Light Gray<br>邊線、分隔線</div>
+        </div>
+
+        <div class="color-swatch">
+          <div class="color-block" style="background: #F7F6F4; border: 1px solid #eee;"></div>
+          <div class="color-hex">#F7F6F4</div>
+          <div class="color-name">Light<br>淺色區塊背景</div>
+        </div>
+
+        <div class="color-swatch">
+          <div class="color-block" style="background: #ffffff; border: 1px solid #eee;"></div>
+          <div class="color-hex">#FFFFFF</div>
+          <div class="color-name">White<br>主背景、卡片</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Section 3: Typography -->
+    <div class="ds-section">
+      <div class="ds-section-title">TYPOGRAPHY 字型系統</div>
+
+      <!-- Font family list -->
+      <div class="font-family-list">
+        <div class="font-family-item">
+          <span class="font-family-name" style="font-family: 'Cormorant Garamond', serif;">Cormorant Garamond</span>
+          <span class="font-family-use">展示級標題、頁面主標</span>
+        </div>
+        <div class="font-family-item">
+          <span class="font-family-name" style="font-family: 'Noto Sans TC', sans-serif;">Noto Sans TC</span>
+          <span class="font-family-use">主文、UI 文字、中文內容</span>
+        </div>
+        <div class="font-family-item">
+          <span class="font-family-name" style="font-family: 'Inter', sans-serif;">Inter</span>
+          <span class="font-family-use">次要 UI、標籤、eyebrow、按鈕文字</span>
+        </div>
+      </div>
+
+      <!-- Style 1: Display -->
+      <div class="ds-row">
+        <div class="ds-label">
+          Display<br>
+          Cormorant Garamond 300<br>
+          64px / line-height 1.1
+          <div class="ds-note">Hero 大標、頁面主 H1</div>
+        </div>
+        <div style="flex: 1;">
+          <div style="font: 300 64px/1.1 'Cormorant Garamond', serif;">設計從空間開始</div>
+        </div>
+      </div>
+
+      <!-- Style 2: Heading -->
+      <div class="ds-row">
+        <div class="ds-label">
+          Heading<br>
+          Cormorant Garamond 300<br>
+          32px / line-height 1.2
+          <div class="ds-note">各 section H2</div>
+        </div>
+        <div style="flex: 1;">
+          <div style="font: 300 32px/1.2 'Cormorant Garamond', serif;">關於我們 About</div>
+        </div>
+      </div>
+
+      <!-- Style 3: Card Title -->
+      <div class="ds-row">
+        <div class="ds-label">
+          Card Title<br>
+          Noto Sans TC 700<br>
+          20px / line-height 1.3
+          <div class="ds-note">職缺標題、案名</div>
+        </div>
+        <div style="flex: 1;">
+          <div style="font: 700 20px/1.3 'Noto Sans TC', sans-serif;">室內設計師</div>
+        </div>
+      </div>
+
+      <!-- Style 4: Body -->
+      <div class="ds-row" style="align-items: flex-start;">
+        <div class="ds-label">
+          Body<br>
+          Noto Sans TC 400<br>
+          13px / line-height 2<br>
+          color #555
+          <div class="ds-note">正文說明、卡片描述</div>
+        </div>
+        <div style="flex: 1; max-width: 560px;">
+          <div style="font: 400 13px/2 'Noto Sans TC', sans-serif; color: #555;">30 年來，羅鈺由一群對空間有熱情的設計師組成，從規劃到施工，每個細節都親力親為。我們的設計哲學，源自對業主生活的深度理解。</div>
+        </div>
+      </div>
+
+      <!-- Style 5: Eyebrow -->
+      <div class="ds-row">
+        <div class="ds-label">
+          Eyebrow<br>
+          Inter 500<br>
+          11px / letter-spacing 0.14em<br>
+          UPPERCASE / color #717071
+          <div class="ds-note">每個 section 上方的識別文字</div>
+        </div>
+        <div style="flex: 1;">
+          <div style="font: 500 11px/1 'Inter', sans-serif; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid);">DESIGN TEAM</div>
+        </div>
+      </div>
+
+      <!-- Style 6: UI Label / Button -->
+      <div class="ds-row" style="margin-bottom: 0;">
+        <div class="ds-label">
+          UI Label / Button<br>
+          Inter 500<br>
+          11px / letter-spacing 0.12em<br>
+          UPPERCASE
+          <div class="ds-note">按鈕、導覽、標籤</div>
+        </div>
+        <div style="flex: 1;">
+          <div style="font: 500 11px/1 'Inter', sans-serif; letter-spacing: 0.12em; text-transform: uppercase;">APPLY NOW → 立即應徵</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Section 4: Buttons -->
+    <div class="ds-section">
+      <div class="ds-section-title">BUTTONS 按鈕</div>
+
+      <div style="display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 32px;">
+
+        <!-- Primary -->
+        <div>
+          <button class="btn-primary">填寫需求表 →</button>
+          <div class="ds-note" style="margin-top: 12px;">Primary — 主要 CTA，紅色實心<br>用於：立即諮詢、填寫表單、送出</div>
+        </div>
+
+        <!-- Secondary -->
+        <div>
+          <button class="btn-secondary">所有作品 →</button>
+          <div class="ds-note" style="margin-top: 12px;">Secondary — 次要動作，紅色描邊<br>用於：瀏覽更多、返回、次要跳轉</div>
+        </div>
+
+        <!-- Ghost on dark bg -->
+        <div>
+          <div style="background: #1E1E1E; padding: 24px 24px;">
+            <button class="btn-ghost">了解更多</button>
+          </div>
+          <div class="ds-note" style="margin-top: 12px;">Ghost — 深色背景專用，白色描邊<br>用於：Hero 區域、深色 CTA 區塊</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Section 5: Dark Backgrounds -->
+    <div class="ds-section">
+      <div class="ds-section-title">DARK BACKGROUNDS 深色背景</div>
+
+      <div style="display: flex; gap: 24px; margin-bottom: 32px;">
+
+        <!-- #1E1E1E -->
+        <div style="flex: 1; background: #1E1E1E; padding: 32px; min-height: 140px; border-radius: 2px;">
+          <div style="font: 600 13px/1 'Inter', sans-serif; color: #fff; margin-bottom: 12px;">#1E1E1E — 主要深色背景</div>
+          <div style="font: 400 12px/1.7 'Noto Sans TC', sans-serif; color: rgba(255,255,255,0.6);">用於：首頁 Hero、設計團隊 Hero、工作機會 Hero、頁尾 CTA</div>
+        </div>
+
+        <!-- #2A2A2A -->
+        <div style="flex: 1; background: #2A2A2A; padding: 32px; min-height: 140px; border-radius: 2px;">
+          <div style="font: 600 13px/1 'Inter', sans-serif; color: #fff; margin-bottom: 12px;">#2A2A2A — 格子 Label 色</div>
+          <div style="font: 400 12px/1.7 'Noto Sans TC', sans-serif; color: rgba(255,255,255,0.6);">用於：設計團隊頁面的分類標籤格子（比主深色略淺，形成視覺層次）</div>
+        </div>
+
+      </div>
+
+      <div style="background: #f8f7f5; border-left: 2px solid var(--red); padding: 16px 20px;">
+        <div style="font: 500 10px/1 'Inter', sans-serif; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); margin-bottom: 10px;">設計規則</div>
+        <div style="font: 400 12px/1.8 'Noto Sans TC', sans-serif; color: #555;">
+          規則：深色區塊一律使用 #1E1E1E 作為背景。<br>
+          設計團隊的 grid label 格子使用 #2A2A2A，比主背景略淺，目的是在同一頁面的深色格群中形成視覺層次。
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 6: Spacing -->
+    <div class="ds-section">
+      <div class="ds-section-title">SPACING 間距系統（基礎單位 8px）</div>
+
+      <div class="spacing-row">
+        <div class="spacing-value">8px</div>
+        <div class="spacing-bar" style="width: 8px;"></div>
+        <div class="spacing-use">元件內最小間距</div>
+      </div>
+
+      <div class="spacing-row">
+        <div class="spacing-value">16px</div>
+        <div class="spacing-bar" style="width: 16px;"></div>
+        <div class="spacing-use">元件間小間距</div>
+      </div>
+
+      <div class="spacing-row">
+        <div class="spacing-value">24px</div>
+        <div class="spacing-bar" style="width: 24px;"></div>
+        <div class="spacing-use">卡片內 padding</div>
+      </div>
+
+      <div class="spacing-row">
+        <div class="spacing-value">32px</div>
+        <div class="spacing-bar" style="width: 32px;"></div>
+        <div class="spacing-use">元件群組間距</div>
+      </div>
+
+      <div class="spacing-row">
+        <div class="spacing-value">48px</div>
+        <div class="spacing-bar" style="width: 48px;"></div>
+        <div class="spacing-use">Section 內部 padding</div>
+      </div>
+
+      <div class="spacing-row">
+        <div class="spacing-value">64px</div>
+        <div class="spacing-bar" style="width: 64px;"></div>
+        <div class="spacing-use">Section 小間距</div>
+      </div>
+
+      <div class="spacing-row">
+        <div class="spacing-value">80px</div>
+        <div class="spacing-bar" style="width: 80px;"></div>
+        <div class="spacing-use">Section 標準間距</div>
+      </div>
+
+      <div class="spacing-row">
+        <div class="spacing-value">120px</div>
+        <div class="spacing-bar" style="width: 120px;"></div>
+        <div class="spacing-use">Section 大間距（頁首 Hero）</div>
+      </div>
+
+    </div>
+
+    <!-- Section 7: Section Pattern -->
+    <div class="ds-section">
+      <div class="ds-section-title">SECTION PATTERN 頁面結構模式</div>
+
+      <!-- Live demo -->
+      <div style="border: 1px solid var(--border); padding: 40px; margin-bottom: 32px; border-radius: 2px;">
+        <span style="font: 500 11px/1 'Inter', sans-serif; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid);">OUR WORK</span>
+        <h2 style="font: 300 32px/1.2 'Cormorant Garamond', serif; margin-top: 10px; margin-bottom: 16px;">精選作品集</h2>
+        <p style="font: 400 13px/2 'Noto Sans TC', sans-serif; color: #555; max-width: 480px; margin-bottom: 0;">30 年來承接三百件以上商辦、住宅及公共空間設計工程，每個作品都是設計力與工程力的結合。</p>
+      </div>
+
+      <!-- Pattern rules -->
+      <div style="margin-bottom: 16px;">
+        <div style="font: 500 10px/1 'Inter', sans-serif; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); margin-bottom: 16px;">Section 結構順序</div>
+      </div>
+      <div class="pattern-code">1. Eyebrow      — Inter, 11px, uppercase, letter-spacing 0.14em, color #717071
+2. H2 標題     — Cormorant Garamond, 32px, weight 300
+3. 說明文字    — Noto Sans TC, 13px, line-height 2, color #555  ← 選填
+4. 主要內容區域 — Grid / Flex</div>
+
+    </div>
+
+    <!-- Section 8: Transitions -->
+    <div class="ds-section">
+      <div class="ds-section-title">TRANSITIONS 動畫時間規範</div>
+
+      <table class="transitions-table">
+        <thead>
+          <tr>
+            <th>用途</th>
+            <th>時間</th>
+            <th>備注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>所有 hover 互動（顏色、背景、透明度）</td>
+            <td>0.3s ease</td>
+            <td>統一標準</td>
+          </tr>
+          <tr>
+            <td>Sidebar 滑入</td>
+            <td>0.42s cubic-bezier(0.4,0,0.2,1)</td>
+            <td>保留，滑動需較長</td>
+          </tr>
+          <tr>
+            <td>Hero 輪播淡接</td>
+            <td>1.4s ease</td>
+            <td>保留，刻意緩慢</td>
+          </tr>
+          <tr>
+            <td>Scroll 進場動畫</td>
+            <td>0.7s ease</td>
+            <td>保留，視覺節奏</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div><!-- end .page-wrap -->
+</body>
+</html>

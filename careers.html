@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>工作機會 — 羅鈺室內設計 LOYU Interior Design</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --red:        #B40014;
+      --dark-red:   #91000A;
+      --dark:       #1E1E1E;
+      --mid:        #717071;
+      --light:      #F7F6F4;
+      --light-gray: #D2D2D2;
+      --border:     #D2D2D2;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans TC', sans-serif; color: var(--dark); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+      height: 64px;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 36px;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+    }
+    .hamburger { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 6px; padding: 4px; }
+    .hamburger span { display: block; width: 26px; height: 1.5px; background: var(--dark); }
+    .nav-logo { height: 24px; display: block; }
+
+    /* OVERLAY + SIDEBAR */
+    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 950; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .overlay.open { opacity: 1; pointer-events: all; }
+    .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 33vw; min-width: 480px; max-width: 580px; background: #fff; z-index: 960; display: flex; flex-direction: column; transform: translateX(-100%); transition: transform 0.42s cubic-bezier(0.4,0,0.2,1); }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-header { display: flex; align-items: center; gap: 16px; padding: 18px 24px 18px 18px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+    .sidebar-close { background: none; border: none; font-size: 20px; cursor: pointer; color: var(--mid); line-height: 1; flex-shrink: 0; }
+    .sidebar-brand { flex: 1; font-size: 17px; font-weight: 700; text-decoration: none; color: var(--dark); }
+    .sidebar-lang { font-size: 12px; letter-spacing: 2px; color: var(--mid); cursor: pointer; flex-shrink: 0; border-bottom: 1px solid transparent; transition: color 0.3s, border-color 0.3s; }
+    .sidebar-lang:hover { color: var(--dark); border-color: var(--dark); }
+    .sidebar-body { display: flex; flex: 1; overflow: hidden; }
+    .sidebar-nav { width: 38%; padding: 32px 20px 40px 40px; border-right: 1px solid var(--border); overflow-y: auto; }
+    .menu-group { margin-bottom: 22px; }
+    .menu-group-title { font-size: 14px; font-weight: 700; padding: 5px 0; cursor: pointer; letter-spacing: 0.5px; color: var(--dark); text-decoration: none; display: block; }
+    .menu-group-title:hover { color: var(--red); }
+    .menu-sub { padding-left: 14px; margin-top: 6px; }
+    .menu-sub a { display: block; font-size: 13px; color: var(--mid); padding: 4px 0; text-decoration: none; transition: color 0.3s; }
+    .menu-sub a:hover { color: var(--red); }
+    .sidebar-contact { width: 62%; padding: 32px 36px 40px 32px; overflow-y: auto; }
+    .sidebar-contact h3 { font-size: 14px; font-weight: 700; letter-spacing: 0.5px; color: var(--dark); margin-bottom: 16px; }
+    .sidebar-contact .info { font-size: 13px; line-height: 2; color: #555; margin-bottom: 28px; }
+    .sidebar-contact .info a { color: var(--red); text-decoration: none; }
+    .sidebar-contact h4 { font-size: 14px; font-weight: 700; letter-spacing: 0.5px; color: var(--dark); margin-bottom: 14px; }
+    .contact-tabs { display: flex; gap: 0; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
+    .contact-tab { padding: 6px 16px 8px 0; font-size: 12px; font-weight: 500; cursor: pointer; color: var(--mid); border-bottom: 2px solid transparent; margin-bottom: -1px; background: none; border-top: none; border-left: none; border-right: none; font-family: inherit; transition: color 0.3s, border-color 0.3s; }
+    .contact-tab.active { color: var(--red); border-bottom-color: var(--red); }
+    .contact-info { display: none; }
+    .contact-info.active { display: block; }
+    .form-select, .form-input { width: 100%; border: none; border-bottom: 1px solid #ccc; padding: 9px 0; font-size: 13px; margin-bottom: 14px; outline: none; background: none; font-family: inherit; color: var(--dark); }
+    .form-submit { margin-top: 8px; padding: 11px 28px; background: var(--red); color: #fff; border: none; font-size: 12px; letter-spacing: 2px; cursor: pointer; font-family: inherit; transition: background 0.3s; }
+    .form-submit:hover { background: var(--dark-red); }
+
+    /* CAREERS HERO */
+    .careers-hero {
+      background: #1E1E1E;
+      padding: 120px max(48px, calc((100% - 900px) / 2)) 80px;
+      margin-top: 64px;
+    }
+    .careers-hero-eyebrow { font: 500 11px/1 'Inter', sans-serif; letter-spacing: .14em; color: rgba(255,255,255,0.45); text-transform: uppercase; display: block; margin-bottom: 20px; }
+    .careers-hero-h1 { font: 300 64px/1.1 'Cormorant Garamond', serif; color: #fff; margin-bottom: 20px; }
+    .careers-hero-sub { font: 400 13px/2 'Noto Sans TC', sans-serif; color: rgba(255,255,255,0.55); max-width: 520px; }
+
+    /* SHARED SECTION ELEMENTS */
+    .section-eyebrow {
+      font: 500 11px/1 'Inter', sans-serif;
+      letter-spacing: .14em;
+      color: var(--mid);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 12px;
+    }
+    .section-h2 {
+      font: 300 32px/1.2 'Cormorant Garamond', serif;
+      color: var(--dark);
+    }
+
+    /* CULTURE SECTION */
+    .culture-section {
+      padding: 80px max(48px, calc((100% - 900px) / 2));
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+    }
+    .culture-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+      margin-top: 48px;
+    }
+    .culture-num {
+      font: 300 72px/1 'Cormorant Garamond', serif;
+      color: var(--red);
+      margin-bottom: 16px;
+      display: block;
+    }
+    .culture-title {
+      font: 700 15px/1.4 'Noto Sans TC', sans-serif;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+    .culture-desc {
+      font: 400 13px/2 'Noto Sans TC', sans-serif;
+      color: #555;
+    }
+
+    /* OPENINGS SECTION */
+    .openings-section {
+      padding: 80px max(48px, calc((100% - 900px) / 2));
+      background: var(--light);
+    }
+    .openings-header { margin-bottom: 48px; }
+    .jobs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      background: var(--border);
+    }
+    .job-card {
+      background: #fff;
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .job-tag {
+      font: 500 10px/1 'Inter', sans-serif;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 16px;
+      display: block;
+    }
+    .job-title {
+      font: 700 22px/1.3 'Noto Sans TC', sans-serif;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .job-salary {
+      font: 500 14px/1 'Inter', sans-serif;
+      color: var(--red);
+      margin-bottom: 24px;
+    }
+    .job-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 0 24px;
+    }
+    .job-meta {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 20px;
+    }
+    .job-meta-item {
+      font: 400 12px/1.6 'Noto Sans TC', sans-serif;
+      color: var(--mid);
+    }
+    .job-meta-item strong {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-family: 'Inter', sans-serif;
+      color: var(--dark);
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .job-reqs {
+      list-style: none;
+      margin: 0 0 32px;
+      flex: 1;
+    }
+    .job-reqs li {
+      font: 400 12px/1.8 'Noto Sans TC', sans-serif;
+      color: #555;
+      padding-left: 16px;
+      position: relative;
+    }
+    .job-reqs li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--red);
+      font-size: 10px;
+    }
+    .job-apply {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: var(--red);
+      color: #fff;
+      font: 500 11px/1 'Inter', sans-serif;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.3s;
+      align-self: flex-start;
+      margin-top: auto;
+    }
+    .job-apply:hover { background: var(--dark-red); }
+
+    /* BENEFITS SECTION */
+    .benefits-section {
+      padding: 80px max(48px, calc((100% - 900px) / 2));
+      background: #fff;
+      border-top: 1px solid var(--border);
+    }
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: 1px solid var(--border);
+      margin-top: 48px;
+    }
+    .benefit-item {
+      padding: 32px 28px;
+      border-right: 1px solid var(--border);
+    }
+    .benefit-item:last-child { border-right: none; }
+    .benefit-item:nth-child(n+5) { border-top: 1px solid var(--border); }
+    .benefit-label {
+      font: 500 11px/1 'Inter', sans-serif;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--red);
+      display: block;
+      margin-bottom: 10px;
+    }
+    .benefit-text {
+      font: 400 13px/1.8 'Noto Sans TC', sans-serif;
+      color: #555;
+    }
+
+    /* CAREERS CTA */
+    .careers-cta {
+      background: var(--dark);
+      padding: 80px max(48px, calc((100% - 900px) / 2));
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 40px;
+    }
+    .cta-text h3 {
+      font: 300 32px/1.2 'Cormorant Garamond', serif;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .cta-text p {
+      font: 400 13px/1.8 'Noto Sans TC', sans-serif;
+      color: rgba(255,255,255,0.5);
+    }
+    .cta-actions { display: flex; gap: 16px; flex-shrink: 0; }
+    .cta-btn-primary {
+      padding: 14px 32px;
+      background: var(--red);
+      color: #fff;
+      font: 500 11px/1 'Inter', sans-serif;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.3s;
+      white-space: nowrap;
+    }
+    .cta-btn-primary:hover { background: var(--dark-red); }
+    .cta-btn-secondary {
+      padding: 14px 32px;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.8);
+      font: 500 11px/1 'Inter', sans-serif;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+    .cta-btn-secondary:hover { border-color: #fff; color: #fff; }
+
+    /* FOOTER */
+    footer { background: var(--light); border-top: 1px solid var(--border); padding: 60px max(24px, calc((100% - 1100px) / 2)) 36px; }
+    .footer-main { display: grid; grid-template-columns: auto 1fr 1fr auto auto; gap: 48px; align-items: start; margin-bottom: 36px; }
+    .footer-logo { align-self: center; }
+    .footer-logo img { height: 38px; display: block; }
+    .footer-block h5 { font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--mid); margin-bottom: 14px; }
+    .footer-block p { font-size: 12px; line-height: 2; color: #555; }
+    .footer-social .social-links { display: flex; gap: 16px; margin-top: 4px; }
+    .footer-social .social-links a { color: var(--dark); text-decoration: none; transition: color 0.3s; display: flex; align-items: center; }
+    .footer-social .social-links a:hover { color: var(--red); }
+    .footer-social .social-links svg { width: 22px; height: 22px; }
+    .footer-cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border: 1px solid var(--red); color: var(--red); font-size: 11px; letter-spacing: 2px; text-decoration: none; transition: all 0.3s; white-space: nowrap; }
+    .footer-cta-btn:hover { background: var(--red); color: #fff; }
+    .footer-bottom { padding-top: 24px; border-top: 1px solid var(--border); font-size: 11px; color: #bbb; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <button class="hamburger" id="menuBtn">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="index.html">
+      <img src="羅鈺網站/LOYU/LOGO/logo-PNG_去背.png" alt="羅鈺室內設計" class="nav-logo">
+    </a>
+  </nav>
+
+  <!-- OVERLAY -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <button class="sidebar-close" id="closeBtn">✕</button>
+      <a href="index.html" class="sidebar-brand">羅鈺室內設計</a>
+      <span class="sidebar-lang">EN</span>
+    </div>
+    <div class="sidebar-body">
+      <div class="sidebar-nav">
+        <div class="menu-group">
+          <a href="portfolio.html" class="menu-group-title">作品集</a>
+          <div class="menu-sub">
+            <a href="portfolio.html#commercial">商辦空間</a>
+            <a href="portfolio.html#residential">住宅空間</a>
+            <a href="portfolio.html#others">其他空間</a>
+          </div>
+        </div>
+        <div class="menu-group">
+          <a href="about.html" class="menu-group-title">關於我們</a>
+          <div class="menu-sub">
+            <a href="team.html">設計團隊</a>
+            <a href="about.html#awards">獲獎記錄</a>
+            <a href="about.html#clients">夥伴與客戶</a>
+          </div>
+        </div>
+        <div class="menu-group">
+          <a href="careers.html" class="menu-group-title">加入我們</a>
+          <div class="menu-sub">
+            <a href="careers.html">工作機會</a>
+            <a href="#">公司環境</a>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar-contact">
+        <h3>聯絡</h3>
+        <div class="contact-tabs">
+          <button class="contact-tab active" data-city="taichung">台中</button>
+          <button class="contact-tab" data-city="kaohsiung">高雄</button>
+        </div>
+        <div class="contact-info active" id="contact-taichung">
+          <div class="info">
+            台中市北屯區崇德路二段128號15樓之3<br>
+            <a href="mailto:loyudesign@loyu.com.tw">loyudesign@loyu.com.tw</a><br>
+            T 04-22366606<br>F 04-22366612
+          </div>
+        </div>
+        <div class="contact-info" id="contact-kaohsiung">
+          <div class="info">
+            高雄市前金區中正四路211號20樓之1<br>
+            <a href="mailto:loyu.kao@msa.hinet.net">loyu.kao@msa.hinet.net</a><br>
+            T 07-2411101<br>F 07-2722905
+          </div>
+        </div>
+        <h4>專案諮詢</h4>
+        <select class="form-select"><option>專案類型</option><option>辦公/廠方設計規劃</option><option>住家設計規劃</option><option>舊屋設計規劃</option><option>外觀拉皮設計規劃</option><option>其他空間設計規劃</option><option>工程估價</option><option>維修服務</option></select>
+        <input class="form-input" placeholder="公司名稱">
+        <input class="form-input" placeholder="聯絡人">
+        <input class="form-input" placeholder="連絡電話">
+        <input class="form-input" placeholder="電子郵件">
+        <input class="form-input" placeholder="聯絡地址">
+        <button class="form-submit">送出</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CAREERS HERO -->
+  <section class="careers-hero">
+    <span class="careers-hero-eyebrow">Join Our Team</span>
+    <h1 class="careers-hero-h1">加入羅鈺</h1>
+    <p class="careers-hero-sub">30 年來，我們相信好的空間始於好的人。羅鈺的每一個設計，都是設計師與工務團隊深度協作的成果。我們正在尋找對空間有熱情、願意精益求精的你。</p>
+  </section>
+
+  <!-- CULTURE SECTION -->
+  <section class="culture-section">
+    <span class="section-eyebrow">Why LOYU</span>
+    <h2 class="section-h2">與我們一起成長</h2>
+    <div class="culture-grid">
+      <div class="culture-item">
+        <span class="culture-num">300+</span>
+        <p class="culture-title">年深耕中南台灣</p>
+        <p class="culture-desc">超過三百件商辦、住宅、公共空間設計案，累積的是不可複製的現場經驗與行業知識。</p>
+      </div>
+      <div class="culture-item">
+        <span class="culture-num">13</span>
+        <p class="culture-title">項國際設計大獎</p>
+        <p class="culture-desc">2024–2025 年獲 iF、A Design、MUSE 等多項國際肯定，在你的作品集增添亮眼的成果。</p>
+      </div>
+      <div class="culture-item">
+        <span class="culture-num">30+</span>
+        <p class="culture-title">位設計與工務夥伴</p>
+        <p class="culture-desc">緊密合作的中型團隊，每位成員都能深度參與專案，不是大公司的小齒輪。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPENINGS SECTION -->
+  <section class="openings-section">
+    <div class="openings-header">
+      <span class="section-eyebrow">Current Openings</span>
+      <h2 class="section-h2">目前職缺</h2>
+    </div>
+    <div class="jobs-grid">
+
+      <!-- 室內設計師 -->
+      <div class="job-card">
+        <span class="job-tag">設計規劃 · Senior</span>
+        <h3 class="job-title">室內設計師</h3>
+        <p class="job-salary">月薪 40,000 元以上</p>
+        <hr class="job-divider">
+        <div class="job-meta">
+          <div class="job-meta-item"><strong>年資</strong>3 年以上</div>
+          <div class="job-meta-item"><strong>學歷</strong>專科以上</div>
+          <div class="job-meta-item"><strong>地點</strong>台中</div>
+        </div>
+        <ul class="job-reqs">
+          <li>具備獨立操作專案規劃能力（設計規劃、提案、工程估價）</li>
+          <li>熟悉 AutoCAD、SketchUp 等 2D/3D 繪圖軟體</li>
+          <li>能獨立管理工程進度與品質，具備協調能力</li>
+          <li>須備機車騎乘駕照；具備汽車駕照尤佳</li>
+        </ul>
+        <a href="https://www.104.com.tw/company/7gopp6w" target="_blank" class="job-apply">立即應徵 →</a>
+      </div>
+
+      <!-- 助理室內設計師 -->
+      <div class="job-card">
+        <span class="job-tag">設計規劃 · Junior</span>
+        <h3 class="job-title">助理室內設計師</h3>
+        <p class="job-salary">月薪 30,000 元以上</p>
+        <hr class="job-divider">
+        <div class="job-meta">
+          <div class="job-meta-item"><strong>年資</strong>不拘</div>
+          <div class="job-meta-item"><strong>學歷</strong>專科以上</div>
+          <div class="job-meta-item"><strong>地點</strong>台中</div>
+        </div>
+        <ul class="job-reqs">
+          <li>歡迎應屆畢業生，設定短期內具備獨立操作專案能力為目標</li>
+          <li>熟悉 AutoCAD、SketchUp 等 2D/3D 繪圖軟體</li>
+          <li>謹慎細膩、效率自律、主動學習，對室內設計有熱忱</li>
+          <li>須備機車騎乘駕照；具備汽車駕照尤佳</li>
+        </ul>
+        <a href="https://www.104.com.tw/company/7gopp6w" target="_blank" class="job-apply">立即應徵 →</a>
+      </div>
+
+      <!-- 監造工務 -->
+      <div class="job-card">
+        <span class="job-tag">工程監造 · Senior</span>
+        <h3 class="job-title">監造工務</h3>
+        <p class="job-salary">月薪 40,000 元以上</p>
+        <hr class="job-divider">
+        <div class="job-meta">
+          <div class="job-meta-item"><strong>年資</strong>3 年以上</div>
+          <div class="job-meta-item"><strong>學歷</strong>專科以上</div>
+          <div class="job-meta-item"><strong>地點</strong>台中</div>
+        </div>
+        <ul class="job-reqs">
+          <li>具備獨立操作專案監造能力（工程監造、品質管理、工務協調）</li>
+          <li>熟悉 AutoCAD，能讀圖並管控施工進度</li>
+          <li>謹慎細膩、效率自律，具備現場問題處理能力</li>
+          <li>須備機車騎乘駕照；具備汽車駕照尤佳</li>
+        </ul>
+        <a href="https://www.104.com.tw/company/7gopp6w" target="_blank" class="job-apply">立即應徵 →</a>
+      </div>
+
+      <!-- 監造工務助理 -->
+      <div class="job-card">
+        <span class="job-tag">工程監造 · Junior</span>
+        <h3 class="job-title">監造工務助理</h3>
+        <p class="job-salary">月薪 30,000 元以上</p>
+        <hr class="job-divider">
+        <div class="job-meta">
+          <div class="job-meta-item"><strong>年資</strong>不拘</div>
+          <div class="job-meta-item"><strong>學歷</strong>專科以上</div>
+          <div class="job-meta-item"><strong>地點</strong>台中</div>
+        </div>
+        <ul class="job-reqs">
+          <li>歡迎應屆畢業生，設定短期內具備獨立監造能力為目標</li>
+          <li>熟悉 AutoCAD，能配合現場施工圖管理作業</li>
+          <li>謹慎細膩、效率自律、主動學習，對工程有興趣</li>
+          <li>須備機車騎乘駕照；具備汽車駕照尤佳</li>
+        </ul>
+        <a href="https://www.104.com.tw/company/7gopp6w" target="_blank" class="job-apply">立即應徵 →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BENEFITS SECTION -->
+  <section class="benefits-section">
+    <span class="section-eyebrow">Benefits</span>
+    <h2 class="section-h2">員工福利</h2>
+    <div class="benefits-grid">
+      <div class="benefit-item">
+        <span class="benefit-label">薪酬</span>
+        <p class="benefit-text">年終獎金<br>設計工程案件責任獎金<br>年度績優人員獎勵</p>
+      </div>
+      <div class="benefit-item">
+        <span class="benefit-label">假期</span>
+        <p class="benefit-text">週休二日<br>生日假<br>特別休假、育嬰留停</p>
+      </div>
+      <div class="benefit-item">
+        <span class="benefit-label">保險</span>
+        <p class="benefit-text">勞保、健保<br>員工團體保險<br>勞退提撥金</p>
+      </div>
+      <div class="benefit-item">
+        <span class="benefit-label">旅遊</span>
+        <p class="benefit-text">年度國內旅遊<br>海內外設計參訪<br>不定期主題講座</p>
+      </div>
+      <div class="benefit-item">
+        <span class="benefit-label">辦公環境</span>
+        <p class="benefit-text">零食櫃、咖啡吧<br>不鼓勵加班<br>08:30–18:00 固定作息</p>
+      </div>
+      <div class="benefit-item">
+        <span class="benefit-label">交通</span>
+        <p class="benefit-text">交通津貼補助<br>電信費補助<br>台中市北屯據點</p>
+      </div>
+      <div class="benefit-item">
+        <span class="benefit-label">成長</span>
+        <p class="benefit-text">主動投件國際設計獎<br>在職專業培訓<br>設計參訪機會</p>
+      </div>
+      <div class="benefit-item">
+        <span class="benefit-label">生活</span>
+        <p class="benefit-text">同仁餐敘、體驗課程<br>員工體檢<br>團隊同歡活動</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAREERS CTA -->
+  <section class="careers-cta">
+    <div class="cta-text">
+      <h3>沒有合適的職缺？</h3>
+      <p>歡迎主動投遞履歷與作品集，我們期待認識對空間有熱情的你。</p>
+    </div>
+    <div class="cta-actions">
+      <a href="https://www.104.com.tw/company/7gopp6w" target="_blank" class="cta-btn-primary">104 人力銀行</a>
+      <a href="mailto:loyudesign@loyu.com.tw?subject=主動應徵－作品集投遞" class="cta-btn-secondary">Email 投遞</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-main">
+      <div class="footer-logo">
+        <img src="羅鈺網站/LOYU/LOGO/LOGO02_去背.png" alt="羅鈺室內裝修工程有限公司">
+      </div>
+      <div class="footer-block">
+        <h5>台中 Taichung</h5>
+        <p>台中市北屯區崇德路二段128號15樓之3<br>T 04-22366606<br>F 04-22366612<br>loyudesign@loyu.com.tw</p>
+      </div>
+      <div class="footer-block">
+        <h5>高雄 Kaohsiung</h5>
+        <p>高雄市前金區中正四路211號20樓之1<br>T 07-2411101<br>F 07-2722905<br>loyu.kao@msa.hinet.net</p>
+      </div>
+      <div class="footer-social">
+        <h5>Follow</h5>
+        <div class="social-links">
+          <a href="https://www.facebook.com/loyu.design" target="_blank" title="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/loyu_interior_design" target="_blank" title="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98C.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-block">
+        <h5>諮詢</h5>
+        <a class="footer-cta-btn" href="#" onclick="openMenu(); return false;">填寫需求表 →</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 LOYU Interior Design Engineering Co., Ltd. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+
+    function openMenu() { sidebar.classList.add('open'); overlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeMenu() { sidebar.classList.remove('open'); overlay.classList.remove('open'); document.body.style.overflow = ''; }
+    menuBtn.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', closeMenu);
+    overlay.addEventListener('click', closeMenu);
+
+    document.querySelectorAll('.contact-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.contact-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.contact-info').forEach(i => i.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('contact-' + tab.dataset.city).classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

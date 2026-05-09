@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>羅鈺室內設計 LOYU Interior Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --red: #B40014;
+  --dark: #1E1E1E;
+  --mid: #717071;
+  --light: #F7F6F4;
+  --border: #E0E0E0;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Noto Sans TC', sans-serif; color: var(--dark); overflow-x: hidden; }
+
+/* ── PRELOADER ── */
+#preloader {
+  position: fixed; inset: 0; z-index: 9999;
+  background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.6s ease;
+}
+#preloader-logo {
+  width: clamp(120px, 14vw, 180px);
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 22px 36px;
+  transition: background 0.5s, box-shadow 0.5s;
+}
+nav.scrolled { background: #fff; box-shadow: 0 1px 20px rgba(0,0,0,0.07); }
+
+.hamburger {
+  background: none; border: none; cursor: pointer;
+  display: flex; flex-direction: column; gap: 6px; padding: 4px;
+}
+.hamburger span {
+  display: block; width: 26px; height: 1.5px;
+  background: #fff; transition: background 0.5s;
+}
+nav.scrolled .hamburger span { background: var(--dark); }
+.nav-logo { height: 24px; display: block; }
+
+/* ── SIDEBAR ── */
+.overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.45);
+  z-index: 950; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+.overlay.open { opacity: 1; pointer-events: all; }
+
+.sidebar {
+  position: fixed; top: 0; left: 0; bottom: 0;
+  width: 33vw; min-width: 480px; max-width: 580px;
+  background: #fff; z-index: 960;
+  display: flex; flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform 0.42s cubic-bezier(0.4,0,0.2,1);
+}
+.sidebar.open { transform: translateX(0); }
+
+/* 頂部 header 行：✕ ｜ 羅鈺室內設計 ｜ EN */
+.sidebar-header {
+  display: flex; align-items: center; gap: 16px;
+  padding: 18px 24px 18px 18px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.sidebar-close {
+  background: none; border: none; font-size: 20px;
+  cursor: pointer; color: var(--mid); line-height: 1; flex-shrink: 0;
+}
+.sidebar-brand { flex: 1; font-size: 17px; font-weight: 700; text-decoration: none; color: var(--dark); }
+.sidebar-lang {
+  font-size: 12px; letter-spacing: 2px; color: var(--mid);
+  cursor: pointer; flex-shrink: 0;
+  border-bottom: 1px solid transparent; transition: color 0.3s, border-color 0.3s;
+}
+.sidebar-lang:hover { color: var(--dark); border-color: var(--dark); }
+
+/* body 行：左選單 | 右聯絡 */
+.sidebar-body { display: flex; flex: 1; overflow: hidden; }
+
+.sidebar-nav {
+  width: 38%; padding: 32px 20px 40px 40px;
+  border-right: 1px solid var(--border); overflow-y: auto;
+}
+
+.menu-group { margin-bottom: 22px; }
+.menu-group-title {
+  font-size: 14px; font-weight: 700;
+  padding: 5px 0; cursor: pointer; letter-spacing: 0.5px;
+  color: var(--dark);
+  text-decoration: none;
+  display: block;
+}
+.menu-group-title:hover { color: var(--red); }
+.menu-sub { padding-left: 14px; margin-top: 6px; }
+.menu-sub a {
+  display: block; font-size: 13px; color: var(--mid);
+  padding: 4px 0; text-decoration: none; transition: color 0.3s;
+}
+.menu-sub a:hover { color: var(--red); }
+
+.sidebar-contact { width: 62%; padding: 32px 36px 40px 32px; overflow-y: auto; }
+.sidebar-contact h3 {
+  font-size: 14px; font-weight: 700; letter-spacing: 0.5px;
+  color: var(--dark); margin-bottom: 16px;
+}
+.sidebar-contact .info { font-size: 13px; line-height: 2; color: #555; margin-bottom: 28px; }
+.sidebar-contact .info a { color: var(--red); text-decoration: none; }
+.sidebar-contact h4 {
+  font-size: 14px; font-weight: 700; letter-spacing: 0.5px;
+  color: var(--dark); margin-bottom: 14px;
+}
+.contact-tabs {
+  display: flex; gap: 0; margin-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.contact-tab {
+  padding: 6px 16px 8px 0; font-size: 12px; font-weight: 500;
+  cursor: pointer; color: var(--mid);
+  border-bottom: 2px solid transparent; margin-bottom: -1px;
+  background: none; border-top: none; border-left: none; border-right: none;
+  font-family: inherit; transition: color 0.3s, border-color 0.3s;
+}
+.contact-tab.active { color: var(--red); border-bottom-color: var(--red); }
+.contact-info { display: none; }
+.contact-info.active { display: block; }
+.form-select, .form-input {
+  width: 100%; border: none; border-bottom: 1px solid #ccc;
+  padding: 9px 0; font-size: 13px; margin-bottom: 14px;
+  outline: none; background: none; font-family: inherit; color: var(--dark);
+}
+.form-submit {
+  margin-top: 8px; padding: 11px 28px; background: var(--red);
+  color: #fff; border: none; font-size: 12px; letter-spacing: 2px;
+  cursor: pointer; font-family: inherit; transition: background 0.3s;
+}
+.form-submit:hover { background: #91000A; }
+
+/* ── HERO ── */
+.hero {
+  position: relative; width: 100%; height: 100vh;
+  overflow: hidden; background: #111;
+}
+.hero-slides { position: absolute; inset: 0; }
+.slide {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  opacity: 0; transition: opacity 1.4s ease;
+}
+.slide.active { opacity: 1; }
+.slide-portrait { background-size: contain; background-repeat: no-repeat; background-color: #8a8a8a; }
+.hero-overlay { position: absolute; inset: 0; background: rgba(255,255,255,0.6); z-index: 1; }
+.hero-logo-wrap {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%); z-index: 2;
+}
+.hero-logo-wrap img { width: clamp(260px, 36vw, 468px); display: block; }
+.hero-scroll {
+  position: absolute; bottom: 36px; left: 50%;
+  transform: translateX(-50%); z-index: 2;
+  color: #717071; font-size: 9px; letter-spacing: 4px; text-transform: uppercase; text-align: center;
+  cursor: pointer;
+}
+.hero-scroll::before {
+  content: ''; display: block; width: 1px; height: 40px;
+  background: rgba(113,112,113,0.5); margin: 0 auto 10px;
+}
+
+/* ── WORKS SECTION ── */
+.works-section { padding: 100px max(40px, calc((100% - 720px) / 2)); }
+
+/* Editorial two-column layout */
+.editorial {
+  display: flex; gap: 24px; align-items: flex-start;
+}
+.ed-left {
+  width: 50%;
+  display: flex; flex-direction: column; gap: 24px;
+}
+.ed-right {
+  width: 50%;
+  display: flex; flex-direction: column; gap: 24px;
+}
+
+.service-intro {
+  padding: 16px 0 4px;
+}
+.service-intro .cat {
+  display: block;
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 20px; font-weight: 500; letter-spacing: 4.32px;
+  color: var(--red); border-bottom: 1px solid var(--red);
+  padding-bottom: 10px; margin-bottom: 14px;
+}
+.service-intro p {
+  font-size: 13px; line-height: 2; color: var(--mid);
+}
+
+.work-item {
+  position: relative; overflow: hidden; cursor: pointer;
+  background: #d5d5d5; display: block;
+}
+.work-item img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.7s ease; display: block;
+}
+.work-item:hover img { transform: scale(1.05); }
+
+.work-caption {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0);
+  display: flex; align-items: flex-end; padding: 18px 20px;
+  transition: background 0.3s;
+}
+.work-item:hover .work-caption { background: rgba(0,0,0,0.50); }
+.work-text { color: #fff; opacity: 0; transform: translateY(6px); transition: opacity 0.3s, transform 0.3s; }
+.work-item:hover .work-text { opacity: 1; transform: translateY(0); }
+.work-text .w-name { font-size: 14px; font-weight: 500; }
+.work-text .w-loc { font-size: 11px; color: rgba(255,255,255,0.75); margin-top: 3px; letter-spacing: 1px; }
+
+.all-works-wrap { text-align: center; margin-top: 64px; }
+.all-works-btn {
+  display: inline-block; padding: 13px 52px;
+  border: 1px solid var(--dark); background: none;
+  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+  cursor: pointer; font-family: inherit; transition: background 0.3s, color 0.3s;
+}
+.all-works-btn:hover { background: var(--dark); color: #fff; }
+
+/* ── ABOUT SECTION ── */
+.about-section {
+  padding: 60px max(40px, calc((100% - 720px) / 2));
+  background: var(--light);
+}
+.about-inner {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  overflow: hidden;
+  align-items: end;
+}
+.about-photo { overflow: hidden; align-self: stretch; }
+.about-photo img {
+  width: 100%; height: 100%; object-fit: cover;
+  object-position: top center; display: block;
+}
+.about-content {
+  padding: 48px 44px;
+  display: flex; flex-direction: column;
+  background: #EEEDE9;
+}
+.about-content .eyebrow {
+  font-size: 9px; letter-spacing: 5px; text-transform: uppercase;
+  color: var(--mid); margin-bottom: 20px;
+}
+.about-content h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px; font-weight: 300; letter-spacing: 2px; line-height: 1.5;
+  margin-bottom: 24px;
+}
+.about-content p { font-size: 13px; line-height: 2.1; color: #555; margin-bottom: 12px; }
+
+/* ── 小視窗 / 縮放 responsive ── */
+@media (max-width: 760px) {
+  .editorial { flex-direction: column; }
+  .ed-left, .ed-right { width: 100%; }
+  .about-inner { grid-template-columns: 1fr; }
+  .about-photo { max-height: 70vw; }
+  .footer-main { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
+
+/* ── REVEAL ON SCROLL ── */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.in-view { opacity: 1; transform: translateY(0); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--light);
+  border-top: 1px solid var(--border);
+  padding: 60px max(24px, calc((100% - 1100px) / 2)) 36px;
+}
+.footer-main {
+  display: grid;
+  grid-template-columns: auto 1fr 1fr auto auto;
+  gap: 48px; align-items: start; margin-bottom: 36px;
+}
+.footer-logo { align-self: center; }
+.footer-logo img { height: 38px; display: block; }
+.footer-block h5 {
+  font-size: 9px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--mid); margin-bottom: 14px;
+}
+.footer-block p { font-size: 12px; line-height: 2; color: #555; }
+
+.footer-social { }
+.footer-social .social-links { display: flex; gap: 16px; margin-top: 4px; }
+.footer-social .social-links a {
+  color: var(--dark); text-decoration: none;
+  transition: color 0.3s; display: flex; align-items: center;
+}
+.footer-social .social-links a:hover { color: var(--red); }
+.footer-social .social-links svg { width: 22px; height: 22px; }
+
+.footer-cta-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 22px; border: 1px solid var(--red);
+  color: var(--red); font-size: 11px; letter-spacing: 2px;
+  text-decoration: none; transition: all 0.3s; white-space: nowrap;
+}
+.footer-cta-btn:hover { background: var(--red); color: #fff; }
+.footer-bottom {
+  padding-top: 24px; border-top: 1px solid var(--border);
+  font-size: 11px; color: #bbb; text-align: center;
+}
+</style>
+</head>
+<body>
+<div id="preloader">
+  <img id="preloader-logo" src="羅鈺網站/LOYU/LOGO/LOGO02_去背.png" alt="LOYU">
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <button class="hamburger" id="menuBtn" aria-label="選單">
+    <span></span><span></span><span></span>
+  </button>
+  <a href="index.html"><img src="羅鈺網站/LOYU/LOGO/logo-PNG_去背.png" alt="羅鈺室內設計" class="nav-logo"></a>
+</nav>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <button class="sidebar-close" id="closeBtn">✕</button>
+    <a href="index.html" class="sidebar-brand">羅鈺室內設計</a>
+    <span class="sidebar-lang">EN</span>
+  </div>
+
+  <div class="sidebar-body">
+  <div class="sidebar-nav">
+    <div class="menu-group">
+      <a href="portfolio.html" class="menu-group-title">作品集</a>
+      <div class="menu-sub">
+        <a href="portfolio.html#commercial">商辦空間</a>
+        <a href="portfolio.html#residential">住宅空間</a>
+        <a href="portfolio.html#others">其他空間</a>
+      </div>
+    </div>
+    <div class="menu-group">
+      <a href="about.html" class="menu-group-title">關於我們</a>
+      <div class="menu-sub">
+        <a href="team.html">設計團隊</a>
+        <a href="about.html#awards">獲獎記錄</a>
+        <a href="about.html#clients">夥伴與客戶</a>
+      </div>
+    </div>
+    <div class="menu-group">
+      <a href="careers.html" class="menu-group-title">加入我們</a>
+      <div class="menu-sub">
+        <a href="careers.html">工作機會</a>
+        <a href="#">公司環境</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-contact">
+    <h3>聯絡</h3>
+    <div class="contact-tabs">
+      <button class="contact-tab active" data-city="taichung">台中</button>
+      <button class="contact-tab" data-city="kaohsiung">高雄</button>
+    </div>
+    <div class="contact-info active" id="contact-taichung">
+      <div class="info">
+        台中市北屯區崇德路128號15樓之3<br>
+        <a href="mailto:loyudesign@loyu.com.tw">loyudesign@loyu.com.tw</a><br>
+        T 04-22366606<br>
+        F 04-22366612
+      </div>
+    </div>
+    <div class="contact-info" id="contact-kaohsiung">
+      <div class="info">
+        高雄市三民區建工路111號3樓之1<br>
+        <a href="mailto:loyu.kao@msa.hinet.net">loyu.kao@msa.hinet.net</a><br>
+        T 07-3722995<br>
+        F 07-3732093
+      </div>
+    </div>
+
+    <h4>專案諮詢</h4>
+    <select class="form-select">
+      <option>專案類型</option>
+      <option>辦公/廠方設計規劃</option>
+      <option>住家設計規劃</option>
+      <option>舊屋設計規劃</option>
+      <option>外觀拉皮設計規劃</option>
+      <option>其他空間設計規劃</option>
+      <option>工程估價</option>
+      <option>維修服務</option>
+    </select>
+    <input class="form-input" placeholder="公司名稱">
+    <input class="form-input" placeholder="聯絡人">
+    <input class="form-input" placeholder="連絡電話">
+    <input class="form-input" placeholder="電子郵件">
+    <input class="form-input" placeholder="聯絡地址">
+    <button class="form-submit">送出</button>
+  </div>
+  </div><!-- /.sidebar-body -->
+</aside>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-slides">
+    <div class="slide active" style="background-image:url('羅鈺網站/extracted/hero_photos/1Hero08.jpg')"></div>
+    <div class="slide" style="background-image:url('羅鈺網站/extracted/hero_photos/2hero_autostate_lobby.jpeg')"></div>
+    <div class="slide" style="background-image:url('羅鈺網站/extracted/hero_photos/3hero_blue_stone_office.jpeg')"></div>
+    <div class="slide" style="background-image:url('羅鈺網站/extracted/hero_photos/4hero_office_golden_light.jpeg')"></div>
+    <div class="slide" style="background-image:url('羅鈺網站/extracted/hero_photos/5hero_lobby_world_map.jpeg')"></div>
+    <div class="slide" style="background-image:url('羅鈺網站/extracted/hero_photos/6hero_curved_showroom.jpeg')"></div>
+    <div class="slide" style="background-image:url('羅鈺網站/extracted/hero_photos/7hero_commercial_grid.jpeg')"></div>
+    <div class="slide" style="background-image:url('羅鈺網站/extracted/hero_photos/8hero_zen_courtyard.jpeg')"></div>
+    <div class="slide" style="background-image:url('羅鈺網站/extracted/hero_photos/9Hero07.jpg')"></div>
+    <div class="slide" style="background-image:url('羅鈺網站/extracted/hero_photos/10hero_residential_staircase.jpeg')"></div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-logo-wrap">
+    <img src="羅鈺網站/LOYU/LOGO/LOGO01_去背_深色.png" alt="LOYU Interior Design">
+  </div>
+  <div class="hero-scroll" onclick="document.getElementById('works').scrollIntoView({behavior:'smooth'})">Scroll</div>
+</section>
+
+<!-- WORKS SECTION -->
+<section class="works-section" id="works">
+  <div class="editorial">
+    <!-- 左欄 50% -->
+    <div class="ed-left">
+      <!-- 作品1 直立大圖 -->
+      <div class="work-item" style="aspect-ratio:3/4">
+        <img src="assets/作品1(台中市日益電機).jpg" alt="日益電機">
+        <div class="work-caption"><div class="work-text"><div class="w-name">日益電機</div><div class="w-loc">台中市</div></div></div>
+      </div>
+      <!-- 作品4 橫式 -->
+      <div class="work-item" style="aspect-ratio:16/9">
+        <img src="assets/作品4(台中市野寶科技).jpg" alt="野寶科技">
+        <div class="work-caption"><div class="work-text"><div class="w-name">野寶科技</div><div class="w-loc">台中市</div></div></div>
+      </div>
+      <!-- 其他空間說明（移至左欄，文物館與野寶之間） -->
+      <div class="service-intro">
+        <span class="cat">其他空間 · Others</span>
+        <p>展覽館、文史館、餐飲空間等多元類型，跨域整合設計思維，創造獨特的場域體驗與記憶點。</p>
+      </div>
+      <!-- 作品7 橫式 -->
+      <div class="work-item" style="aspect-ratio:16/9">
+        <img src="assets/作品7(高雄市永記造漆-彩虹文史館文物館).jpg" alt="彩虹文史館">
+        <div class="work-caption"><div class="work-text"><div class="w-name">永記造漆—彩虹文史館文物館</div><div class="w-loc">高雄市</div></div></div>
+      </div>
+    </div>
+
+    <!-- 右欄 50% -->
+    <div class="ed-right">
+      <!-- 商辦空間說明 -->
+      <div class="service-intro">
+        <span class="cat">商辦空間 · Commercial</span>
+        <p>總部辦公、廠辦複合、員工空間等多元型態，整合空間機能與企業文化，三十年深耕中南台灣各產業領域。</p>
+      </div>
+      <!-- 作品2 橫式 -->
+      <div class="work-item" style="aspect-ratio:16/9">
+        <img src="assets/作品2(南投縣正翰生技).jpg" alt="正翰生技">
+        <div class="work-caption"><div class="work-text"><div class="w-name">正翰生技</div><div class="w-loc">南投縣</div></div></div>
+      </div>
+      <!-- 作品3 橫式 -->
+      <div class="work-item" style="aspect-ratio:16/9">
+        <img src="assets/作品3(台中市橋椿金屬).jpg" alt="橋椿金屬">
+        <div class="work-caption"><div class="work-text"><div class="w-name">橋椿金屬</div><div class="w-loc">台中市</div></div></div>
+      </div>
+      <!-- 住宅空間說明 -->
+      <div class="service-intro">
+        <span class="cat">住宅空間 · Residential</span>
+        <p>公館、宅邸、接待會館等私人住宅空間，以居者為核心，打造兼具品味與機能的專屬生活場域。</p>
+      </div>
+      <!-- 作品5 橫式（獨立，與野寶同寬） -->
+      <div class="work-item" style="aspect-ratio:16/9">
+        <img src="assets/作品5(彰化縣羅公宅).jpg" alt="羅公宅">
+        <div class="work-caption"><div class="work-text"><div class="w-name">羅公宅</div><div class="w-loc">彰化縣</div></div></div>
+      </div>
+      <!-- 作品6 橫式（獨立） -->
+      <div class="work-item" style="aspect-ratio:16/9">
+        <img src="assets/作品6(台中市接待會館).jpg" alt="接待會館">
+        <div class="work-caption"><div class="work-text"><div class="w-name">接待會館</div><div class="w-loc">台中市</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="all-works-wrap">
+    <a href="portfolio.html" class="all-works-btn">所有作品</a>
+  </div>
+</section>
+
+<!-- ABOUT SECTION -->
+<section class="about-section">
+  <div class="about-inner">
+    <div class="about-photo">
+      <img src="羅鈺網站/LOYU/作品集/04_團隊照片/臺中個人照/羅鈺-總經理.jpg" alt="羅鈺">
+    </div>
+    <div class="about-content">
+      <div class="eyebrow">About · 關於羅鈺</div>
+      <h2>中南台灣室內設計<br>三十年深耕</h2>
+      <p>羅鈺團隊超過30位設計師於中南台灣室內設計界耕耘超過30年，承辦300件以上商辦空間設計規劃及裝修工程。</p>
+      <p>設計規劃，充足經驗提供最佳建議；<br>
+      裝修工程，專業團隊完成高品質施工；<br>
+      完工使用，十足信心擔保完工品質並勇於解決各項疑難雜症。</p>
+      <p>誠摯歡迎與我們聊聊您的空間需求，<br>我們會努力爭取您的信賴與支持。</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-main">
+    <div class="footer-logo">
+      <img src="羅鈺網站/LOYU/LOGO/LOGO02_去背.png" alt="羅鈺室內裝修工程有限公司">
+    </div>
+    <div class="footer-block">
+      <h5>台中 Taichung</h5>
+      <p>台中市北屯區崇德路128號15樓之3<br>T 04-22366606<br>F 04-22366612<br>loyudesign@loyu.com.tw</p>
+    </div>
+    <div class="footer-block">
+      <h5>高雄 Kaohsiung</h5>
+      <p>高雄市三民區建工路111號3樓之1<br>T 07-3722995<br>F 07-3732093<br>loyu.kao@msa.hinet.net</p>
+    </div>
+    <div class="footer-social">
+      <h5>Follow</h5>
+      <div class="social-links">
+        <a href="https://www.facebook.com/loyu.design" target="_blank" title="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/loyu_interior_design" target="_blank" title="Instagram">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98C.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-block">
+      <h5>諮詢</h5>
+      <a class="footer-cta-btn" href="#" onclick="openMenu(); return false;">填寫需求表 →</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 LOYU Interior Design Engineering Co., Ltd. All rights reserved.
+  </div>
+</footer>
+
+<script>
+(function() {
+  var preloader = document.getElementById('preloader');
+  var logo = document.getElementById('preloader-logo');
+  setTimeout(function() { logo.style.opacity = '1'; }, 200);
+  setTimeout(function() { preloader.style.opacity = '0'; }, 1800);
+  setTimeout(function() { preloader.style.display = 'none'; }, 2400);
+})();
+// Nav + Hero scroll effects
+const nav = document.getElementById('nav');
+const hero = document.querySelector('.hero');
+const heroLogoWrap = document.querySelector('.hero-logo-wrap');
+const heroScroll = document.querySelector('.hero-scroll');
+const heroSlides = document.querySelector('.hero-slides');
+
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const heroH = hero.offsetHeight;
+
+  // Nav turns white after hero
+  nav.classList.toggle('scrolled', scrollY >= heroH - 70);
+
+  // Hero 向上淡出：在前 50% hero 高度內完成淡出 + 上移
+  const progress = Math.min(scrollY / (heroH * 0.5), 1);
+  const opacity = 1 - progress;
+  const moveUp = progress * 50;
+
+  // Logo 向上淡出
+  heroLogoWrap.style.opacity = opacity;
+  heroLogoWrap.style.transform = `translate(-50%, calc(-50% - ${moveUp}px))`;
+
+  // SCROLL 文字淡出
+  heroScroll.style.opacity = Math.max(0, 1 - progress * 2);
+
+  // 背景圖片視差（慢速上移）
+  heroSlides.style.transform = `translateY(${scrollY * 0.25}px)`;
+}, { passive: true });
+
+// Hamburger menu
+const menuBtn = document.getElementById('menuBtn');
+const closeBtn = document.getElementById('closeBtn');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+
+function openMenu() {
+  sidebar.classList.add('open');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeMenu() {
+  sidebar.classList.remove('open');
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+menuBtn.addEventListener('click', openMenu);
+closeBtn.addEventListener('click', closeMenu);
+overlay.addEventListener('click', closeMenu);
+
+// Hero slideshow
+const slides = document.querySelectorAll('.slide');
+let current = 0;
+setInterval(() => {
+  slides[current].classList.remove('active');
+  current = (current + 1) % slides.length;
+  slides[current].classList.add('active');
+}, 3000);
+
+// Works section 向上淡入
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.work-item, .service-intro').forEach((el, i) => {
+  el.classList.add('reveal');
+  el.style.transitionDelay = `${Math.min(i * 0.06, 0.18)}s`;
+  revealObserver.observe(el);
+});
+
+// 台中/高雄 tab 切換
+document.querySelectorAll('.contact-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.contact-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.contact-info').forEach(i => i.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('contact-' + tab.dataset.city).classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
