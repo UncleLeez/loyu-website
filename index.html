@@ -273,9 +273,25 @@ nav.scrolled .hamburger span { background: var(--dark); }
 .about-content p { font-size: 13px; line-height: 2.1; color: #555; margin-bottom: 12px; }
 
 /* ── 小視窗 / 縮放 responsive ── */
-@media (max-width: 760px) {
-  .editorial { flex-direction: column; }
-  .ed-left, .ed-right { width: 100%; }
+
+/* 平板 (768–1199px) */
+@media (max-width: 1199px) {
+  .sidebar { width: 70vw; min-width: 0; max-width: 520px; }
+  .works-section { padding: 80px 48px; }
+  .editorial { gap: 64px; }
+  .ed-left { gap: 56px; }
+  .ed-right { gap: 56px; padding-top: 48px; }
+  .footer-main { grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+}
+
+/* 手機 (≤767px) */
+@media (max-width: 767px) {
+  nav { padding: 16px 20px; }
+  .sidebar { width: 92vw; min-width: 0; }
+  .works-section { padding: 60px 24px; }
+  .editorial { flex-direction: column; gap: 0; }
+  .ed-left, .ed-right { width: 100%; gap: 48px; }
+  .ed-right { padding-top: 0; }
   .about-inner { grid-template-columns: 1fr; }
   .about-photo { max-height: 70vw; }
   .footer-main { grid-template-columns: 1fr 1fr; gap: 32px; }
