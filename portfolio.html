@@ -189,7 +189,6 @@ nav {
   border-top: 2px solid var(--red);
   display: grid;
   grid-template-columns: 62% 38%;
-  height: 72vh;
   background: #fff;
 }
 
@@ -746,9 +745,13 @@ document.querySelectorAll('.portfolio-item').forEach(item => {
     lastInRow.insertAdjacentElement('afterend', expandEl);
     expandEl.querySelector('.ep-close-btn').addEventListener('click', closePanel);
 
+    // 動態高度：視窗高度 - nav - 那排高度 = 面板高度
+    const navH = document.querySelector('nav').offsetHeight;
+    const rowH = item.getBoundingClientRect().height;
+    expandEl.style.height = `calc(100vh - ${navH + rowH}px)`;
+
     // 捲動：被點擊那排頂部對齊 nav 下緣
     setTimeout(() => {
-      const navH = document.querySelector('nav').offsetHeight;
       const rowTop = item.getBoundingClientRect().top + window.scrollY - navH;
       window.scrollTo({ top: rowTop, behavior: 'smooth' });
     }, 50);
