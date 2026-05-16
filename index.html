@@ -179,19 +179,20 @@ nav.scrolled .hamburger span { background: var(--dark); }
 }
 
 /* ── WORKS SECTION ── */
-.works-section { padding: 100px max(40px, calc((100% - 720px) / 2)); }
+.works-section { padding: 100px max(60px, calc((100% - 1080px) / 2)); }
 
 /* Editorial two-column layout */
 .editorial {
-  display: flex; gap: 24px; align-items: flex-start;
+  display: flex; gap: 112px; align-items: flex-start;
 }
 .ed-left {
   width: 50%;
-  display: flex; flex-direction: column; gap: 24px;
+  display: flex; flex-direction: column; gap: 90px;
 }
 .ed-right {
   width: 50%;
-  display: flex; flex-direction: column; gap: 24px;
+  display: flex; flex-direction: column; gap: 90px;
+  padding-top: 80px;
 }
 
 .service-intro {
@@ -235,6 +236,7 @@ nav.scrolled .hamburger span { background: var(--dark); }
   display: inline-block; padding: 13px 52px;
   border: 1px solid var(--dark); background: none;
   font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--dark); text-decoration: none;
   cursor: pointer; font-family: inherit; transition: background 0.3s, color 0.3s;
 }
 .all-works-btn:hover { background: var(--dark); color: #fff; }
@@ -450,20 +452,20 @@ footer {
         <img src="assets/作品1(台中市日益電機).jpg" alt="日益電機">
         <div class="work-caption"><div class="work-text"><div class="w-name">日益電機</div><div class="w-loc">台中市</div></div></div>
       </div>
-      <!-- 作品4 橫式 -->
-      <div class="work-item" style="aspect-ratio:16/9">
-        <img src="assets/作品4(台中市野寶科技).jpg" alt="野寶科技">
-        <div class="work-caption"><div class="work-text"><div class="w-name">野寶科技</div><div class="w-loc">台中市</div></div></div>
-      </div>
-      <!-- 其他空間說明（移至左欄，文物館與野寶之間） -->
+      <!-- 住宅空間說明 -->
       <div class="service-intro">
-        <span class="cat">其他空間 · Others</span>
-        <p>展覽館、文史館、餐飲空間等多元類型，跨域整合設計思維，創造獨特的場域體驗與記憶點。</p>
+        <span class="cat">住宅空間 · Residential</span>
+        <p>公館、宅邸、接待會館等私人住宅空間，以居者為核心，打造兼具品味與機能的專屬生活場域。</p>
       </div>
-      <!-- 作品7 橫式 -->
-      <div class="work-item" style="aspect-ratio:16/9">
-        <img src="assets/作品7(高雄市永記造漆-彩虹文史館文物館).jpg" alt="彩虹文史館">
-        <div class="work-caption"><div class="work-text"><div class="w-name">永記造漆—彩虹文史館文物館</div><div class="w-loc">高雄市</div></div></div>
+      <!-- 羅公宅 -->
+      <div class="work-item" style="aspect-ratio:3/2">
+        <img src="assets/作品5(彰化縣羅公宅).jpg" alt="羅公宅">
+        <div class="work-caption"><div class="work-text"><div class="w-name">羅公宅</div><div class="w-loc">彰化縣</div></div></div>
+      </div>
+      <!-- 接待會館 -->
+      <div class="work-item" style="aspect-ratio:3/2">
+        <img src="assets/作品6(台中市接待會館).jpg" alt="接待會館">
+        <div class="work-caption"><div class="work-text"><div class="w-name">接待會館</div><div class="w-loc">台中市</div></div></div>
       </div>
     </div>
 
@@ -474,30 +476,25 @@ footer {
         <span class="cat">商辦空間 · Commercial</span>
         <p>總部辦公、廠辦複合、員工空間等多元型態，整合空間機能與企業文化，三十年深耕中南台灣各產業領域。</p>
       </div>
-      <!-- 作品2 橫式 -->
-      <div class="work-item" style="aspect-ratio:16/9">
+      <!-- 正翰生技 -->
+      <div class="work-item" style="aspect-ratio:3/2">
         <img src="assets/作品2(南投縣正翰生技).jpg" alt="正翰生技">
         <div class="work-caption"><div class="work-text"><div class="w-name">正翰生技</div><div class="w-loc">南投縣</div></div></div>
       </div>
-      <!-- 作品3 橫式 -->
-      <div class="work-item" style="aspect-ratio:16/9">
+      <!-- 橋椿金屬 -->
+      <div class="work-item" style="aspect-ratio:3/2">
         <img src="assets/作品3(台中市橋椿金屬).jpg" alt="橋椿金屬">
         <div class="work-caption"><div class="work-text"><div class="w-name">橋椿金屬</div><div class="w-loc">台中市</div></div></div>
       </div>
-      <!-- 住宅空間說明 -->
+      <!-- 其他空間說明 -->
       <div class="service-intro">
-        <span class="cat">住宅空間 · Residential</span>
-        <p>公館、宅邸、接待會館等私人住宅空間，以居者為核心，打造兼具品味與機能的專屬生活場域。</p>
+        <span class="cat">其他空間 · Others</span>
+        <p>展覽館、文史館、餐飲空間等多元類型，跨域整合設計思維，創造獨特的場域體驗與記憶點。</p>
       </div>
-      <!-- 作品5 橫式（獨立，與野寶同寬） -->
-      <div class="work-item" style="aspect-ratio:16/9">
-        <img src="assets/作品5(彰化縣羅公宅).jpg" alt="羅公宅">
-        <div class="work-caption"><div class="work-text"><div class="w-name">羅公宅</div><div class="w-loc">彰化縣</div></div></div>
-      </div>
-      <!-- 作品6 橫式（獨立） -->
-      <div class="work-item" style="aspect-ratio:16/9">
-        <img src="assets/作品6(台中市接待會館).jpg" alt="接待會館">
-        <div class="work-caption"><div class="work-text"><div class="w-name">接待會館</div><div class="w-loc">台中市</div></div></div>
+      <!-- 永記造漆 -->
+      <div class="work-item" style="aspect-ratio:3/2">
+        <img src="assets/作品7(高雄市永記造漆-彩虹文史館文物館).jpg" alt="彩虹文史館">
+        <div class="work-caption"><div class="work-text"><div class="w-name">永記造漆—彩虹文史館文物館</div><div class="w-loc">高雄市</div></div></div>
       </div>
     </div>
   </div>
