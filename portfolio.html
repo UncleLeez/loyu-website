@@ -239,6 +239,23 @@ nav {
   text-transform: uppercase; width: fit-content;
 }
 .ep-consult:hover { background: #91000A; }
+
+/* ── RESPONSIVE ── */
+
+/* 平板 (768–1199px) */
+@media (max-width: 1199px) {
+  .sidebar { width: 70vw; min-width: 0; max-width: 520px; }
+  .portfolio-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* 手機 (≤767px) */
+@media (max-width: 767px) {
+  .sidebar { width: 92vw; min-width: 0; }
+  .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+  .expand-panel-inline { grid-template-columns: 1fr; height: auto !important; }
+  .ep-photo-area { height: 60vw; }
+  .ep-info { padding: 28px 24px; }
+}
 </style>
 </head>
 <body>

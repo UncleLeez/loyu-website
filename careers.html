@@ -302,6 +302,23 @@
     .footer-cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border: 1px solid var(--red); color: var(--red); font-size: 11px; letter-spacing: 2px; text-decoration: none; transition: all 0.3s; white-space: nowrap; }
     .footer-cta-btn:hover { background: var(--red); color: #fff; }
     .footer-bottom { padding-top: 24px; border-top: 1px solid var(--border); font-size: 11px; color: #bbb; text-align: center; }
+
+    /* ── RESPONSIVE ── */
+
+    /* 平板 (768–1199px) */
+    @media (max-width: 1199px) {
+      .sidebar { width: 70vw; min-width: 0; max-width: 520px; }
+      .footer-main { grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+    }
+
+    /* 手機 (≤767px) */
+    @media (max-width: 767px) {
+      .sidebar { width: 92vw; min-width: 0; }
+      .culture-grid { grid-template-columns: 1fr; }
+      .jobs-grid { grid-template-columns: 1fr; }
+      .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-main { grid-template-columns: 1fr; gap: 24px; }
+    }
   </style>
 </head>
 <body>

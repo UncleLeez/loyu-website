@@ -289,9 +289,20 @@ footer {
 }
 
 /* ── RESPONSIVE ── */
-@media (max-width: 760px) {
-  .team-hero-h1 { font-size: 44px; }
-  .footer-main { grid-template-columns: 1fr 1fr; gap: 32px; }
+
+/* 平板 (768–1199px) */
+@media (max-width: 1199px) {
+  .sidebar { width: 70vw; min-width: 0; max-width: 520px; }
+  .team-grid { grid-template-columns: repeat(3, 1fr); }
+  .footer-main { grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+}
+
+/* 手機 (≤767px) */
+@media (max-width: 767px) {
+  .sidebar { width: 92vw; min-width: 0; }
+  .team-hero-h1 { font-size: 36px; }
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-main { grid-template-columns: 1fr; gap: 24px; }
 }
 </style>
 </head>

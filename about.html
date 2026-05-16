@@ -503,14 +503,23 @@ footer {
 }
 
 /* ── RESPONSIVE ── */
-@media (max-width: 760px) {
+
+/* 平板 (768–1199px) */
+@media (max-width: 1199px) {
+  .sidebar { width: 70vw; min-width: 0; max-width: 520px; }
+  .footer-main { grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+}
+
+/* 手機 (≤767px) */
+@media (max-width: 767px) {
+  .sidebar { width: 92vw; min-width: 0; }
   .story-inner { grid-template-columns: 1fr; }
   .story-photo { max-height: 60vw; }
   .services-grid { grid-template-columns: 1fr; }
   .stats-grid { grid-template-columns: 1fr 1fr; }
   .hero-title { font-size: 52px; }
   .statement-pullquote { font-size: 28px; }
-  .footer-main { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .footer-main { grid-template-columns: 1fr; gap: 24px; }
   .awards-tl-grade,
   .awards-tl-client { display: none; }
   .awards-h2, .clients-h2 { font-size: 32px; }
