@@ -272,39 +272,6 @@ nav.scrolled .hamburger span { background: var(--dark); }
 }
 .about-content p { font-size: 13px; line-height: 2.1; color: #555; margin-bottom: 12px; }
 
-/* ── 小視窗 / 縮放 responsive ── */
-
-/* 平板 (768–1199px) */
-@media (max-width: 1199px) {
-  .sidebar { width: 70vw; min-width: 0; max-width: 520px; }
-  .works-section { padding: 80px 48px; }
-  .editorial { gap: 64px; }
-  .ed-left { gap: 56px; }
-  .ed-right { gap: 56px; padding-top: 48px; }
-  .footer-main { grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
-}
-
-/* 手機 (≤767px) */
-@media (max-width: 767px) {
-  nav { padding: 16px 20px; }
-  .sidebar { width: 92vw; min-width: 0; }
-  .works-section { padding: 60px 24px; }
-  .editorial { flex-direction: column; gap: 48px; }
-  .ed-left, .ed-right { display: contents; }
-  #wi-riyidian  { order: 1; }
-  #wi-shangban  { order: 2; }
-  #wi-zhenhan   { order: 3; }
-  #wi-qiaozhuan { order: 4; }
-  #wi-zhuzhai   { order: 5; }
-  #wi-luogong   { order: 6; }
-  #wi-jiedai    { order: 7; }
-  #wi-qita      { order: 8; }
-  #wi-yongji    { order: 9; }
-  .about-inner { grid-template-columns: 1fr; }
-  .about-photo { max-height: 70vw; }
-  .footer-main { grid-template-columns: 1fr; gap: 24px; }
-}
-
 /* ── REVEAL ON SCROLL ── */
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .reveal.in-view { opacity: 1; transform: translateY(0); }
@@ -347,6 +314,39 @@ footer {
 .footer-bottom {
   padding-top: 24px; border-top: 1px solid var(--border);
   font-size: 11px; color: #bbb; text-align: center;
+}
+
+/* ── 小視窗 / 縮放 responsive ── */
+
+/* 平板 (768–1199px) */
+@media (max-width: 1199px) {
+  .sidebar { width: 70vw; min-width: 0; max-width: 520px; }
+  .works-section { padding: 80px 48px; }
+  .editorial { gap: 64px; }
+  .ed-left { gap: 56px; }
+  .ed-right { gap: 56px; padding-top: 48px; }
+  .footer-main { grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+}
+
+/* 手機 (≤767px) */
+@media (max-width: 767px) {
+  nav { padding: 16px 20px; }
+  .sidebar { width: 92vw; min-width: 0; }
+  .works-section { padding: 60px 24px; }
+  .editorial { flex-direction: column; gap: 48px; }
+  .ed-left, .ed-right { display: contents; }
+  #wi-riyidian  { order: 1; }
+  #wi-shangban  { order: 2; }
+  #wi-zhenhan   { order: 3; }
+  #wi-qiaozhuan { order: 4; }
+  #wi-zhuzhai   { order: 5; }
+  #wi-luogong   { order: 6; }
+  #wi-jiedai    { order: 7; }
+  #wi-qita      { order: 8; }
+  #wi-yongji    { order: 9; }
+  .about-inner { grid-template-columns: 1fr; }
+  .about-photo { max-height: 70vw; }
+  .footer-main { grid-template-columns: 1fr; gap: 24px; }
 }
 </style>
 </head>
