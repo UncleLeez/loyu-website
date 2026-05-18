@@ -201,12 +201,12 @@ nav.scrolled .hamburger span { background: var(--dark); }
 .service-intro .cat {
   display: block;
   font-family: 'Noto Sans TC', sans-serif;
-  font-size: 20px; font-weight: 500; letter-spacing: 4.32px;
+  font-size: 28px; font-weight: 500; letter-spacing: 4.32px;
   color: var(--red); border-bottom: 1px solid var(--red);
   padding-bottom: 10px; margin-bottom: 14px;
 }
 .service-intro p {
-  font-size: 13px; line-height: 2; color: var(--mid);
+  font-size: 18px; line-height: 2; color: var(--mid);
 }
 
 .work-item {
@@ -235,7 +235,7 @@ nav.scrolled .hamburger span { background: var(--dark); }
 .all-works-btn {
   display: inline-block; padding: 13px 52px;
   border: 1px solid var(--dark); background: none;
-  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+  font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
   color: var(--dark); text-decoration: none;
   cursor: pointer; font-family: inherit; transition: background 0.3s, color 0.3s;
 }
@@ -243,7 +243,7 @@ nav.scrolled .hamburger span { background: var(--dark); }
 
 /* ── ABOUT SECTION ── */
 .about-section {
-  padding: 60px max(40px, calc((100% - 720px) / 2));
+  padding: 60px max(40px, calc((100% - 1080px) / 2));
   background: var(--light);
 }
 .about-inner {
@@ -270,7 +270,7 @@ nav.scrolled .hamburger span { background: var(--dark); }
   font-size: 28px; font-weight: 300; letter-spacing: 2px; line-height: 1.5;
   margin-bottom: 24px;
 }
-.about-content p { font-size: 13px; line-height: 2.1; color: #555; margin-bottom: 12px; }
+.about-content p { font-size: 15px; line-height: 2.1; color: #555; margin-bottom: 24px; }
 
 /* ── REVEAL ON SCROLL ── */
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
@@ -283,9 +283,10 @@ footer {
   padding: 60px max(24px, calc((100% - 1100px) / 2)) 36px;
 }
 .footer-main {
-  display: grid;
-  grid-template-columns: auto 1fr 1fr auto auto;
-  gap: 48px; align-items: start; margin-bottom: 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 32px; margin-bottom: 36px;
 }
 .footer-logo { align-self: center; }
 .footer-logo img { height: 38px; display: block; }
@@ -325,7 +326,7 @@ footer {
   .editorial { gap: 64px; }
   .ed-left { gap: 56px; }
   .ed-right { gap: 56px; padding-top: 48px; }
-  .footer-main { grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+  .footer-main { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
 }
 
 /* 手機 (≤767px) */
@@ -346,7 +347,7 @@ footer {
   #wi-yongji    { order: 9; }
   .about-inner { grid-template-columns: 1fr; }
   .about-photo { max-height: 70vw; }
-  .footer-main { grid-template-columns: 1fr; gap: 24px; }
+  .footer-main { display: grid; grid-template-columns: 1fr; gap: 24px; }
 }
 </style>
 </head>

@@ -273,7 +273,7 @@ nav {
   margin-bottom: 28px;
 }
 .story-body {
-  font-size: 13px; line-height: 2.2; color: #555;
+  font-size: 15px; line-height: 2.2; color: #555;
   margin-bottom: 16px;
 }
 .story-body:last-child { margin-bottom: 0; }
@@ -326,7 +326,7 @@ nav {
 }
 .pillar-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease; }
 .service-pillar:hover .pillar-img img { transform: scale(1.04); }
-.pillar-desc { font-size: 13px; line-height: 2; color: #555; }
+.pillar-desc { font-size: 15px; line-height: 2; color: #555; }
 
 /* ── SECTION 6: AWARDS ── */
 .awards-mq-wrap { overflow: hidden; }
@@ -459,7 +459,7 @@ nav {
 .cta-btn {
   display: inline-block; padding: 16px 56px;
   background: var(--red); color: #fff;
-  font-size: 11px; letter-spacing: 4px; text-decoration: none;
+  font-size: 13px; letter-spacing: 4px; text-decoration: none;
   transition: background 0.3s;
   font-family: 'Inter', sans-serif;
 }
@@ -472,9 +472,10 @@ footer {
   padding: 60px max(24px, calc((100% - 1100px) / 2)) 36px;
 }
 .footer-main {
-  display: grid;
-  grid-template-columns: auto 1fr 1fr auto auto;
-  gap: 48px; align-items: start; margin-bottom: 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 32px; margin-bottom: 36px;
 }
 .footer-logo { align-self: center; }
 .footer-logo img { height: 38px; display: block; }
@@ -482,7 +483,7 @@ footer {
   font-size: 9px; letter-spacing: 4px; text-transform: uppercase;
   color: var(--mid); margin-bottom: 14px;
 }
-.footer-block p { font-size: 12px; line-height: 2; color: #555; }
+.footer-block p { font-size: 13px; line-height: 2; color: #555; }
 .footer-social .social-links { display: flex; gap: 16px; margin-top: 4px; }
 .footer-social .social-links a {
   color: var(--dark); text-decoration: none;
@@ -493,7 +494,7 @@ footer {
 .footer-cta-btn {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 12px 22px; border: 1px solid var(--red);
-  color: var(--red); font-size: 11px; letter-spacing: 2px;
+  color: var(--red); font-size: 13px; letter-spacing: 2px;
   text-decoration: none; transition: all 0.3s; white-space: nowrap;
 }
 .footer-cta-btn:hover { background: var(--red); color: #fff; }
@@ -507,7 +508,7 @@ footer {
 /* 平板 (768–1199px) */
 @media (max-width: 1199px) {
   .sidebar { width: 70vw; min-width: 0; max-width: 520px; }
-  .footer-main { grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+  .footer-main { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
 }
 
 /* 手機 (≤767px) */
@@ -519,7 +520,7 @@ footer {
   .stats-grid { grid-template-columns: 1fr 1fr; }
   .hero-title { font-size: 52px; }
   .statement-pullquote { font-size: 28px; }
-  .footer-main { grid-template-columns: 1fr; gap: 24px; }
+  .footer-main { display: grid; grid-template-columns: 1fr; gap: 24px; }
   .awards-tl-grade,
   .awards-tl-client { display: none; }
   .awards-h2, .clients-h2 { font-size: 32px; }

@@ -159,7 +159,7 @@ nav {
   margin-bottom: 16px;
 }
 .team-hero-sub {
-  font: 400 13px/2 'Noto Sans TC', sans-serif;
+  font: 400 15px/2 'Noto Sans TC', sans-serif;
   color: rgba(255,255,255,0.55);
   max-width: 480px;
 }
@@ -247,7 +247,7 @@ nav {
   margin-bottom: 8px;
 }
 .label-desc {
-  font: 400 11px/1.8 'Noto Sans TC', sans-serif;
+  font: 400 13px/1.8 'Noto Sans TC', sans-serif;
   color: rgba(255,255,255,0.5);
 }
 
@@ -258,9 +258,10 @@ footer {
   padding: 60px max(24px, calc((100% - 1100px) / 2)) 36px;
 }
 .footer-main {
-  display: grid;
-  grid-template-columns: auto 1fr 1fr auto auto;
-  gap: 48px; align-items: start; margin-bottom: 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 32px; margin-bottom: 36px;
 }
 .footer-logo { align-self: center; }
 .footer-logo img { height: 38px; display: block; }
@@ -268,7 +269,7 @@ footer {
   font-size: 9px; letter-spacing: 4px; text-transform: uppercase;
   color: var(--mid); margin-bottom: 14px;
 }
-.footer-block p { font-size: 12px; line-height: 2; color: #555; }
+.footer-block p { font-size: 13px; line-height: 2; color: #555; }
 .footer-social .social-links { display: flex; gap: 16px; margin-top: 4px; }
 .footer-social .social-links a {
   color: var(--dark); text-decoration: none;
@@ -279,7 +280,7 @@ footer {
 .footer-cta-btn {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 12px 22px; border: 1px solid var(--red);
-  color: var(--red); font-size: 11px; letter-spacing: 2px;
+  color: var(--red); font-size: 13px; letter-spacing: 2px;
   text-decoration: none; transition: all 0.3s; white-space: nowrap;
 }
 .footer-cta-btn:hover { background: var(--red); color: #fff; }
@@ -294,7 +295,7 @@ footer {
 @media (max-width: 1199px) {
   .sidebar { width: 70vw; min-width: 0; max-width: 520px; }
   .team-grid { grid-template-columns: repeat(3, 1fr); }
-  .footer-main { grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+  .footer-main { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
 }
 
 /* 手機 (≤767px) */
@@ -302,7 +303,7 @@ footer {
   .sidebar { width: 92vw; min-width: 0; }
   .team-hero-h1 { font-size: 36px; }
   .team-grid { grid-template-columns: repeat(2, 1fr); }
-  .footer-main { grid-template-columns: 1fr; gap: 24px; }
+  .footer-main { display: grid; grid-template-columns: 1fr; gap: 24px; }
 }
 </style>
 </head>
