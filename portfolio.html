@@ -780,6 +780,14 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { closePanel(); closeMenu(); }
 });
 
+// 從首頁連結自動展開指定作品
+const _proj = new URLSearchParams(window.location.search).get('project');
+if (_proj) {
+  const _target = [...document.querySelectorAll('.portfolio-item')]
+    .find(el => el.dataset.name === _proj);
+  if (_target) setTimeout(() => _target.click(), 150);
+}
+
 // 台中/高雄 tab 切換
 document.querySelectorAll('.contact-tab').forEach(tab => {
   tab.addEventListener('click', () => {
